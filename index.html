@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Blazing The Trail - Yellowstone</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.css' rel='stylesheet' />
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id='map'></div>
+	<button onclick="toggleFilter()">ToggleFilter</button>
+	<div id='toggleFilter' style="display:none">
+	  <label for='dropdown'>Select an option:</label>
+	  <select id='dropdown'>
+		<option value='option1'>Option 1</option>
+		<option value='option2'>Option 2</option>
+	  </select>
+	  <br>
+ 	 <label for='slider'>Select a value:</label>
+	 <input type="range" id="slider" min="0" max="4" value="0.5" />
+	  <br>
+	  <button onclick="applyFilter()">Apply Filter</button>
+      <button onclick='clearFilter()'>Clear Filter</button>
+    </div>
+ <script src='script.js'></script>
+</body>
+</html>
+
+
