@@ -1,12 +1,107 @@
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; z-index: -1; }
 #toggleFilter {
+  position: fixed; /* or position: absolute; depending on your needs */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+#toggleFilter2 {
+  position: fixed; /* or position: absolute; depending on your needs */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+  .filter-container {
+    position: relative;
+    padding-right: 30px; 
+    overflow: auto;
+}
+
+.close-button {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 1000; /* increase the z-index value */
-    background-color: #ffffff57;
-    padding: 10px;
-    border: 1px solid #ccc;
+    top: 0;
+    right: 0;
+    padding: 1 px;
+}
+
+.close-filter-button {
+    border: 1px solid #000000; /* Add border */
+    background-color: #ffffff;
+    font-size: 16px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.button-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.round-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #949494;
+  margin-right: 5px;
+  border: black;
+  
+}
+.selected {
+  background-color: #f0f0f0;
+  border: 2px solid #000000;
+}
+.button-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#bounding-box {
+  width: 100px; /* Default width */
+  height: 100px; /* Default height */
+  background-color: red;
+  margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+  /* Adjust styles for smaller screens */
+  #toggleFilter {
+    padding: 5px;
   }
   
+  .button-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  #bounding-box {
+    width: 80px;
+    height: 80px;
+  }
+}

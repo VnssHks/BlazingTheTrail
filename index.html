@@ -5,6 +5,8 @@
 <title>Blazing The Trail - Yellowstone</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.js'></script>
+<script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+<script src="https://unpkg.com/supercluster/dist/supercluster.min.js"></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.css' rel='stylesheet' />
 <link rel="stylesheet" href="style.css">
 </head>
@@ -12,20 +14,101 @@
     <div id='map'></div>
 	<button onclick="toggleFilter()">ToggleFilter</button>
 	<div id='toggleFilter' style="display:none">
-	  <label for='dropdown'>Select an option:</label>
-	  <select id='dropdown'>
-		<option value='option1'>Option 1</option>
-		<option value='option2'>Option 2</option>
-	  </select>
+        <div class="filter-container">
+            <label for='dropdown'>Please select your starting point/entrance of the park</label> <br>
+            <select id="dropdown">
+                <option value="North Entrance">North Entrance</option>
+                <option value="West Entrance">West Entrance</option>
+                <option value="South Entrance">South Entrance</option>
+                <option value="East Entrance">East Entrance</option>
+                <option value="North East Entrance">North East Entrance</option>
+		
+            </select> <br> 
+		
+            <div class="close-button">
+				<button class="close-filter-button" onclick="toggleFilter()">X</button>
+			</div>
+			
 	  <br>
- 	 <label for='slider'>Select a value:</label>
-	 <input type="range" id="slider" min="0" max="4" value="0.5" />
-	  <br>
-	  <button onclick="applyFilter()">Apply Filter</button>
-      <button onclick='clearFilter()'>Clear Filter</button>
+ 	 <label for='slider'>How long are you planning to stay?</label>
+	 <input type="range" id="slider" min="1" max="5" value="1" />
+	 <br> <br>
+	 <label for='slider2'>How active do you want to be?</label>
+	 <input type="range" id="slider2" min="1" max="5" value="1" />
+	  <br> 
+		  <br>
+	  <div class="button-info">
+		<span class="button-info-text">Please select any additional activities you want to take part in.</span>
+	  </div> <br>
+	  
+	  <div class="button-container">
+		<div class="button-row">
+		  <div class="button-wrapper">
+			<button class="round-button poi-filter-button"  data-poi-type="Geyser, Amphitheater, Peak, Point of Interest, Waterfall"></button>
+			<span class="button-text">Photography</span>
+		  </div>
+		  <div class="button-wrapper">
+			<button class="round-button poi-filter-button" data-poi-type="Picnic area"></button>
+			<span class="button-text">Picnic</span>
+		  </div>
+		</div>
+		
+		<div class="button-row">
+		  <div class="button-wrapper">
+			<button class="round-button poi-filter-button" data-poi-type="Information, Museum, Visitor Center"></button>
+			<span class="button-text">Museums and Information</span>
+		  </div>
+		  <div class="button-wrapper">
+			<button class="round-button poi-filter-button" data-poi-type="Lodging"></button>
+			<span class="button-text">Lodging</span>
+		  </div>
+		</div>
+		
+		<div class="button-row">
+		  <div class="button-wrapper">
+			<button class="round-button poi-filter-button" data-poi-type="Campground, Campsite, RV Campground, Dumpstation"></button>
+			<span class="button-text">Camping</span>
+		  </div>
+		  <div class="button-wrapper">
+			<button class="round-button poi-filter-button" data-poi-type="Food Service"></button>
+			<span class="button-text">Dine in</span>
+		  </div>
+		</div>
+		
+		<div class="button-row">
+		  <div class="button-wrapper">
+			<button class="round-button poi-filter-button" data-poi-type="Horseback Riding"></button>
+			<span class="button-text">Horseback Riding</span>
+		  </div>
+		  <div class="button-wrapper">
+			<button class="round-button poi-filter-button" data-poi-type="Store"></button>
+			<span class="button-text">Shopping</span>
+		  </div>
+		</div>
+	  </div>
+	  <button id="applyFilterButton" onclick="applyFilter();toggleFilter()">Apply Filter</button>
+	  <button id="clearFilterButton" onclick="clearFilter()">Clear Filter</button>
+	  
+	  </div>
     </div>
- <script src='script.js'></script>
+	<button onclick="toggleFilter2()">ToggleFilter2</button>
+	<div id='toggleFilter2' style="display:none">
+        <div class="filter-container">
+            <label for='dropdown5'>Select one of these predefined Map Styles</label> <br> <br>
+            <select id="dropdown5">
+                <option value="Adventurer">Do it all Adventurer</option>
+                <option value="Picnicker">Value Picnicker</option>
+                <option value="Comfort">Comfort Creature</option>
+                <option value="Windshield">Windshield Tourist</option>
+                <option value="Backcountry">Back Country Enthusiasts</option>
+		
+            </select> <br> 
+		
+            <div class="close-button">
+				<button class="close-filter-button" onclick="toggleFilter2()">X</button>
+			</div>
+ <script src="icons.js"></script>			
+ <script src='script_2.js'></script>
+ <script src='script_3.js'></script>
 </body>
 </html>
-
-
