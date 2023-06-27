@@ -46,7 +46,7 @@ fetch('https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/YS_Trails_
       type: 'line',
       source: 'trails',
       paint: {
-        'line-color': 'black',
+        'line-color': '#A0766E',
         'line-width': 1
       }
     });
@@ -85,8 +85,6 @@ fetch('https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/YS_Trails_
       paint: {
         'circle-color': 'black', // Set the point color
         'circle-radius': 2, // Set the point radius
-        'circle-stroke-width': 1, // Set the stroke width
-        'circle-stroke-color': '#ffffff' // Set the stroke color
       }
     });
   })
@@ -122,8 +120,8 @@ fetch('https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/YS_Trails_
       type: 'line', // Change the type to 'circle' for a point layer
       source: 'Roads',
       paint: {
-        'line-color': 'black',
-        'line-width': 1,
+        'line-color': '#000000',
+        'line-width': 0.5,
       }
     });
   })
@@ -158,8 +156,8 @@ fetch('https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/Yellowston
       type: 'line',
       source: 'boundary',
       paint: {
-        'line-color': 'dark blue',
-        'line-width': 0.5
+        'line-color': '#DEE6E6',
+        'line-width': 2
       }
     });
   })
@@ -182,7 +180,7 @@ const highlightedLayer = {
   source: 'highlightedSource',
   type: 'line',
   paint: {
-    'line-color': 'red',
+    'line-color': '#F7B32B',
     'line-width': 3
   }
 };
@@ -406,7 +404,7 @@ function filterTrailsByBoundingBox(bbox) {
       type: 'line',
       source: 'filtered',
       paint: {
-        'line-color': 'red',
+        'line-color': '#F7B32B',
         'line-width': 4
       }
     });
@@ -465,7 +463,7 @@ function filterTrailsByBoundingBox(bbox) {
       maxCategory = 4;
       maxEstimated = 4.5;
     } else if (sliderValue2 === 5) {
-      maxValue = 35;
+      maxValue = 1000;
       maxValueElev = 1000;
       maxCategory =  5;
       maxEstimated = 1000;
@@ -477,51 +475,57 @@ function filterTrailsByBoundingBox(bbox) {
 const filteredFeaturesUpdated = filteredFeatures.filter(function (feature) {
     console.log('Feature', feature);
     // Check if the feature has the 'Miles' property
+  // Check if the feature has the 'Miles' property
+    // Check if the feature has the 'Miles' property
+     // Check if the feature has the 'Miles' property
+  if (
+    feature.properties &&
+    feature.properties.Miles !== null &&
+    feature.properties.Miles !== undefined
+  ) {
+    const attributeMiles = parseFloat(feature.properties.Miles.replace(',', '.'));
+    console.log('Attribute Miles:', attributeMiles);
+
+    // Check if the feature has the 'Elev_gain' property
     if (
-      feature.properties &&
-      feature.properties.Miles !== null &&
-      feature.properties.Miles !== undefined
+      feature.properties.Elev_Gain !== null &&
+      feature.properties.Elev_Gain !== undefined
     ) {
-      const attributeMiles = parseFloat(feature.properties.Miles.replace(',', '.'));
-      // Check if the feature has the 'Elev_gain' property
+      const attributeElevGain = parseFloat(feature.properties.Elev_Gain.replace(',', '.'));
+      console.log('Attribute Elev_gain:', attributeElevGain);
+
       if (
-        feature.properties.Elev_Gain !== null &&
-        feature.properties.Elev_Gain !== undefined
+        feature.properties.Category !== null &&
+        feature.properties.Category !== undefined
       ) {
-        const attributeElevGain = parseFloat(feature.properties.Elev_Gain.replace(',', '.'));
-        console.log('Attribute Elev_gain:', attributeElevGain);
+        const attributeCategory = parseFloat(feature.properties.Category.replace(',', '.'));
+        console.log('Attribute Category:', attributeCategory);
+
         if (
-            feature.properties.Category !== null &&
-            feature.properties.Category !== undefined
+          feature.properties.Estimated !== null &&
+          feature.properties.Estimated !== undefined
         ) {
-            const attributeCategory = parseFloat(feature.properties.Category.replace(',','.'));
-            console.log("Attribute Category:", attributeCategory);
-            if (
-                feature.properties.Estimated !== null&&
-                feature.properties.Estimated !== undefined
-            ) {
-                const attributeEstimated = parseFloat(feature.properties.Estimated);
-                console.log("Attribute Estimated:", attributeEstimated);
-                return attributeMiles < maxValue && attributeElevGain < maxValueElev && attributeCategory < maxCategory && attributeEstimated < maxEstimated;
-            } else {
-                console.log("Missing Estimated Value");
-                return attributeMiles < maxValue && attributeElevGain < maxValueElev && attributeCategory < maxCategory;
-            }
+          const attributeEstimated = parseFloat(feature.properties.Estimated);
+          console.log('Attribute Estimated:', attributeEstimated);
+
+          return attributeMiles < maxValue && (attributeElevGain < maxValueElev || attributeElevGain === 0 || isNaN(attributeElevGain)) && attributeCategory < maxCategory && attributeEstimated < maxEstimated;
         } else {
-            console.log("Missing Category Value");
-            return attributeMiles < maxValue && attributeElevGain < maxValueElev;
+          console.log('Missing Estimated Value');
+          return attributeMiles < maxValue && (attributeElevGain < maxValueElev || attributeElevGain === 0 || isNaN(attributeElevGain)) && attributeCategory < maxCategory;
         }
-        
       } else {
-        console.log('Missing Elev_gain value');
-        return attributeMiles < maxValue;
+        console.log('Missing Category Value');
+        return attributeMiles < maxValue && (attributeElevGain < maxValueElev || attributeElevGain === 0 || isNaN(attributeElevGain));
       }
     } else {
-      console.log('Missing Miles value');
-      return true;
+      console.log('Missing Elev_gain value');
+      return true; // Include trails with missing or null Elev_gain
     }
-  });
-  
+  } else {
+    console.log('Missing Miles value');
+    return true; // Include trails with missing or null Miles
+  }
+});
   // Create a GeoJSON object with the updated filtered features
   const filteredGeoJSON = turf.featureCollection(filteredFeaturesUpdated);
   
@@ -555,7 +559,7 @@ const filteredFeaturesUpdated = filteredFeatures.filter(function (feature) {
     type: 'line',
     source: 'filtered',
     paint: {
-      'line-color': 'red',
+      'line-color': '#F7B32B',
       'line-width': 4
     }
   });
@@ -807,6 +811,7 @@ newFilteredPointGeoJSON.features.forEach(function (point, index) {
         icon: 'marker-filtered-' + index // Use the index as the icon name
       }
     };
+    Object.assign(marker.properties, point.properties);
 
     // Add the marker to the valid markers array
     markersFiltered.push(marker);
@@ -910,6 +915,7 @@ newFilteredPredefinedGeoJSON.features.forEach(function (point, index) {
         icon: 'marker-' + index // Use the index as the icon name
       }
     };
+    Object.assign(marker.properties, point.properties);
 
     // Add the marker to the valid markers array
     markers.push(marker);
@@ -994,7 +1000,7 @@ function togglePOIFilter() {
     map.setFilter("boundary", filter);
     map.setLayoutProperty("boundary", "visibility", "visible");
     map.setCenter([-110.629578, 44.480121]);
-    map.setZoom(7); // Set the zoom level to 10
+    map.setZoom(8); // Set the zoom level to 10
     // Clear the 'filtered' layer if it exists
     if (map.getLayer('filtered-lines')){
       map.removeLayer('filtered-lines')

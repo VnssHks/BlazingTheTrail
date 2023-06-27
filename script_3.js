@@ -147,7 +147,7 @@ dropdown5.addEventListener('change', function() {
       type: 'line',
       source: 'filtered',
       paint: {
-        'line-color': 'red',
+        'line-color': '#F7B32B',
         'line-width': 4
       }
     });
@@ -309,6 +309,7 @@ function FilterPointsOfInterest(dropdown51) {
 filteredGeoJSON.features.forEach(function (feature) {
   const poiType = feature.properties.POITYPE;
   feature.properties.iconImage = iconMapping[poiType];
+  feature.properties = { ...feature.properties };
 });
 
 // Create a cluster source for the filtered points
@@ -377,6 +378,7 @@ filteredGeoJSON.features.forEach(function (point, index) {
         icon: 'marker-filtered-' + index // Use the index as the icon name
       }
     };
+    Object.assign(marker.properties, point.properties);
 
     // Add the marker to the valid markers array
     markersFiltered.push(marker);
@@ -425,6 +427,8 @@ map.getSource('clustered-markers-filtered').setData({
 predefinedGeoJSON.features.forEach(function (feature) {
   const poiType = feature.properties.POITYPE;
   feature.properties.iconImage = iconMapping[poiType];
+  feature.properties = { ...feature.properties };
+
 });
 
 // Create a cluster source
@@ -490,6 +494,7 @@ predefinedGeoJSON.features.forEach(function (point, index) {
         icon: 'marker-' + index // Use the index as the icon name
       }
     };
+    Object.assign(marker.properties, point.properties);
 
     // Add the marker to the valid markers array
     markers.push(marker);
@@ -518,5 +523,6 @@ map.getSource('clustered-markers').setData({
 });
 
 }
+
 
 

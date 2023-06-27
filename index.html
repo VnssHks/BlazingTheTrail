@@ -12,14 +12,22 @@
 </head>
 <body>
 	<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "hpvevc6cvl");
-</script>
+		(function(c,l,a,r,i,t,y){
+			c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+			t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+			y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+		})(window, document, "clarity", "script", "hpvevc6cvl");
+	</script>
     <div id='map'></div>
-	<button onclick="toggleFilter()">ToggleFilter</button>
+	<button id="legendButton">Legend</button>
+
+	<div id="legend"></div>
+	<button id="togglealertsbutton" onclick="toggleBox('alerts-box')">Current Alerts</button>
+
+	<div class="box" id="alerts-box">
+	  <div class="box-content" id="alerts"></div>
+	</div>
+	<button id='togglefilterbutton' class="filter-button" onclick="toggleFilter()">Select trip details</button>
 	<div id='toggleFilter' style="display:none">
         <div class="filter-container">
             <label for='dropdown'>Please select your starting point/entrance of the park</label> <br>
@@ -37,10 +45,14 @@
 			</div>
 			
 	  <br>
- 	 <label for='slider'>How long are you planning to stay?</label>
+ 	 <label for='slider'>How long are you planning to stay?   <span class="info-icon">ⓘ<span class="tooltip" data-tooltip="This slider is split into five steps, ranging from 1 Day to &gt;10 Days">
+		This slider is split into five steps,<br> ranging from 1 Day to &gt;10 Days
+	  </span></span></label>
 	 <input type="range" id="slider" min="1" max="5" value="1" />
 	 <br> <br>
-	 <label for='slider2'>How active do you want to be?</label>
+	 <label for='slider2'>How active do you want to be?   <span class="info-icon">ⓘ<span class="tooltip" data-tooltip="This slider is split into five steps, ranging from not active at all to very active">
+		This slider is split into five steps,<br> ranging from not active at all to very active
+	  </span></span></label>
 	 <input type="range" id="slider2" min="1" max="5" value="1" />
 	  <br> 
 		  <br>
@@ -98,7 +110,7 @@
 	  
 	  </div>
     </div>
-	<button onclick="toggleFilter2()">ToggleFilter2</button>
+	<button id='togglefilterbutton2' class="filter-button" onclick="toggleFilter2()">Predefined Maps</button>
 	<div id='toggleFilter2' style="display:none">
         <div class="filter-container">
             <label for='dropdown5'>Select one of these predefined Map Styles</label> <br> <br>
@@ -117,5 +129,7 @@
  <script src="icons.js"></script>			
  <script src='script_2.js'></script>
  <script src='script_3.js'></script>
+ <script src='labels.js'></script>
+ <script src="legend.js"></script>
 </body>
 </html>
