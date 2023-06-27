@@ -29,6 +29,10 @@
 	</div>
 	<button id='togglefilterbutton' class="filter-button" onclick="toggleFilter()">Select trip details</button>
 	<div id='toggleFilter' style="display:none">
+		<p class="bold-text">Select trip details</p>        
+		<div class="close-button">
+			<button class="close-filter-button" onclick="toggleFilter()">X</button>
+		</div>
         <div class="filter-container">
             <label for='dropdown'>Please select your starting point/entrance of the park</label> <br>
             <select id="dropdown">
@@ -38,11 +42,7 @@
                 <option value="East Entrance">East Entrance</option>
                 <option value="North East Entrance">North East Entrance</option>
 		
-            </select> <br> 
-		
-            <div class="close-button">
-				<button class="close-filter-button" onclick="toggleFilter()">X</button>
-			</div>
+            </select> <br>
 			
 	  <br>
  	 <label for='slider'>How long are you planning to stay?   <span class="info-icon">ⓘ<span class="tooltip" data-tooltip="This slider is split into five steps, ranging from 1 Day to &gt;10 Days">
