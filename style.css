@@ -46,11 +46,13 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 .close-filter-button {
     border: 1px solid #000000; /* Add border */
     background-color: #ffffff;
-    font-size: 16px;
+    font-size: 13px;
     color: #000000;
     cursor: pointer;
 }
-
+.bold-text {
+  font-weight: bold;
+}
 .button-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -123,7 +125,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   .tooltip {
   position: absolute;
   top: 100%;
-  right: 100%;
+  right: 0;
   width: 100px;
   padding: 5px;
   background-color: #f9f9f9;
