@@ -80,7 +80,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   border: black;
 }
 .selected {
-  background-color: #4400ff;
+  background-color: #007AFF;
 
 }
 .button-text {
@@ -120,7 +120,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
     border: black;
   }
   .selected {
-    background-color: #4400ff;
+    background-color: #007AFF;
   }
   .tooltip {
   position: absolute;
@@ -270,7 +270,7 @@ display: none;
 .tooltip {
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
   width: 200px;
   padding: 5px;
   background-color: #f9f9f9;
