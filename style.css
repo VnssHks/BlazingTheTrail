@@ -109,6 +109,18 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
     width: 80px;
     height: 80px;
   }
+    .round-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #000000;
+    margin-right: 5px;
+    border: black;
+  }
+  .selected {
+    background-color: #4400ff;
+  
+  }
 }
 #legendButton {
   position: absolute;
