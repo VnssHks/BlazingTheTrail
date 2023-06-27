@@ -119,12 +119,11 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   }
   .selected {
     background-color: #4400ff;
-  
   }
   .tooltip {
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 100%;
   width: 100px;
   padding: 5px;
   background-color: #f9f9f9;
