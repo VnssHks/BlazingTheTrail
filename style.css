@@ -75,7 +75,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #000000;
+  background-color: #f0f0f0;
   margin-right: 5px;
   border: black;
 }
@@ -115,7 +115,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #000000;
+    background-color: #f0f0f0;
     margin-right: 5px;
     border: black;
   }
@@ -159,11 +159,10 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
     height: 80px;
   }
     .round-button {
-    width: 45px;
-    height: 45px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    background-color: #000000;
-    margin-right: 5px;
+    background-color: #f0f0f0;
     border: black;
   }
   .selected {
