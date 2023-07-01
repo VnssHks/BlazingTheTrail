@@ -19,7 +19,7 @@ const trailLegendItem = {
   
   const boundaryLegendItem = {
     name: 'Boundaries',
-    color: '#DEE6E6', // Specify the desired color for boundaries
+    color: '#000000', // Specify the desired color for boundaries
   };
   const FilteredLegendItem = {
       name: 'Filtered Trails',
@@ -134,3 +134,13 @@ function toggleBox(boxId) {
     }
   };
   xhr.send();
+
+  // Get the button and text box container elements
+const roundaboutButton = document.getElementById('roundabout-button');
+const textBoxContainer = document.getElementById('text-box-container');
+
+// Add click event listener to the roundabout button
+roundaboutButton.addEventListener('click', function() {
+  // Toggle the visibility of the text box container
+  textBoxContainer.style.display = textBoxContainer.style.display === 'none' ? 'block' : 'none';
+});

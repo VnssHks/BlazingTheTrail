@@ -18,160 +18,11 @@ dropdown5.addEventListener('change', function() {
     // Call your function with the selected value
     Predefined_Maps(dropdown51);
     FilterPointsOfInterest(dropdown51);
+    
   });
   
 
-  function Predefined_Maps(dropdown51) {
-    let maxValue;
-    let maxValueElev;
-    let maxCategory;
-    let maxEstimated;
-  
-    // Set the max value based on the slider value
-    if (dropdown51 === 'Adventurer') {
-      maxValue = 50;
-      maxValueElev = 1000;
-      maxCategory = 5;
-      maxEstimated = 100;
-      console.log(maxValueElev);
-      console.log(maxValue);
-    } else if (dropdown51 === 'Picnicker') {
-      maxValue = 10;
-      maxValueElev = 200;
-      maxCategory = 4;
-      maxEstimated = 4;
-    } else if (dropdown51 === 'Comfort') {
-      maxValue = 4;
-      maxValueElev = 150;
-      maxCategory = 1;
-      maxEstimated = 2;
-    } else if (dropdown51 === 'Windshield') {
-      maxValue = 4;
-      maxValueElev = 50;
-      maxCategory = 1;
-      maxEstimated = 2;
-    } else if (dropdown51 === 'Backcountry') {
-      maxValue = 50;
-      maxValueElev = 1000;
-      maxCategory = 5;
-      maxEstimated = 100;
-    } else {
-      return; // Invalid slider value
-    }
-  
-    // Filter trails by attribute values (Miles and Elev_gain)
-    const filteredFeaturesUpdated = trails.features.filter(function (feature) {
-      console.log('Feature:', feature);
-  
-      // Check if the feature has the 'Miles' property
-      if (
-        feature.properties &&
-        feature.properties.Miles !== null &&
-        feature.properties.Miles !== undefined
-      ) {
-        const attributeMiles = parseFloat(feature.properties.Miles.replace(',', '.'));
-        console.log('Attribute Miles:', attributeMiles);
-  
-        // Check if the feature has the 'Elev_gain' property
-        if (
-          feature.properties.Elev_Gain !== null &&
-          feature.properties.Elev_Gain !== undefined
-        ) {
-          const attributeElevGain = parseFloat(feature.properties.Elev_Gain.replace(',', '.'));
-          console.log('Attribute Elev_gain:', attributeElevGain);
-  
-          if (
-            feature.properties.Category !== null &&
-            feature.properties.Category !== undefined
-          ) {
-            const attributeCategory = parseFloat(feature.properties.Category.replace(',', '.'));
-            console.log('Attribute Category:', attributeCategory);
-  
-            if (
-              feature.properties.Estimated !== null &&
-              feature.properties.Estimated !== undefined
-            ) {
-              const attributeEstimated = parseFloat(feature.properties.Estimated);
-              console.log('Attribute Estimated:', attributeEstimated);
-  
-              return attributeMiles < maxValue && attributeElevGain < maxValueElev && attributeCategory < maxCategory && attributeEstimated < maxEstimated;
-            } else {
-              console.log('Missing Estimated Value');
-              return attributeMiles < maxValue && attributeElevGain < maxValueElev && attributeCategory < maxCategory;
-            }
-          } else {
-            console.log('Missing Category Value');
-            return attributeMiles < maxValue && attributeElevGain < maxValueElev;
-          }
-        } else {
-          console.log('Missing Elev_gain value');
-          return attributeMiles < maxValue;
-        }
-      } else {
-        console.log('Missing Miles value');
-        return true;
-      }
-    });
-  
-    // Create a GeoJSON object with the updated filtered features
-    const filteredGeoJSON = turf.featureCollection(filteredFeaturesUpdated);
-    console.log('Filtered GeoJSON:', filteredGeoJSON);
-  
-    // Clear the 'filtered' layer if it exists
-    if (map.getLayer('filtered-lines')) {
-      map.removeLayer('filtered-lines');
-    }
-    if (map.getSource('filtered-lines')) {
-      map.removeSource('filtered-lines');
-    }
-    if (map.getLayer('filtered-labels')) {
-      map.removeLayer('filtered-labels');
-    }
-    if (map.getSource('filtered-labels')) {
-      map.removeSource('filtered-labels');
-    }
-    if (map.getLayer('filtered')) {
-      map.removeLayer('filtered');
-    }
-    if (map.getSource('filtered')) {
-      map.removeSource('filtered');
-    }
-  
-    // Add the updated filtered features as a new source and layer
-    map.addSource('filtered', {
-      type: 'geojson',
-      data: filteredGeoJSON
-    });
-    map.addLayer({
-      id: 'filtered-lines',
-      type: 'line',
-      source: 'filtered',
-      paint: {
-        'line-color': '#F7B32B',
-        'line-width': 4
-      }
-    });
-  
-    // Add labels to the 'predefined-poi' layer with a halo effect
-    map.addLayer({
-      id: 'filtered-labels',
-      type: 'symbol',
-      source: 'filtered',
-      layout: {
-        'symbol-placement': 'line',
-        'text-field': ['get', 'MAPLABEL'],
-        'text-font': ['Open Sans Regular'],
-        'text-size': 12,
-        'text-offset': [0, 1], // Adjust the vertical offset as needed
-        'text-anchor': 'center'
-      },
-      paint: {
-        'text-color': 'black',
-        'text-halo-color': 'white', // Set the halo color to white
-        'text-halo-width': 2, // Adjust the halo width as desired
-      },
-    });
-  }
+
   
 
 ///POI FILTERING
@@ -521,8 +372,161 @@ map.getSource('clustered-markers').setData({
   type: 'FeatureCollection',
   features: markers
 });
-
 }
 
+
+
+
+function Predefined_Maps(dropdown51) {
+  let maxValue;
+  let maxValueElev;
+  let maxCategory;
+  let maxEstimated;
+
+  // Set the max value based on the slider value
+  if (dropdown51 === 'Adventurer') {
+    maxValue = 50;
+    maxValueElev = 1000;
+    maxCategory = 5;
+    maxEstimated = 100;
+    console.log(maxValueElev);
+    console.log(maxValue);
+  } else if (dropdown51 === 'Picnicker') {
+    maxValue = 10;
+    maxValueElev = 200;
+    maxCategory = 4;
+    maxEstimated = 4;
+  } else if (dropdown51 === 'Comfort') {
+    maxValue = 4;
+    maxValueElev = 150;
+    maxCategory = 1;
+    maxEstimated = 2;
+  } else if (dropdown51 === 'Windshield') {
+    maxValue = 4;
+    maxValueElev = 50;
+    maxCategory = 1;
+    maxEstimated = 2;
+  } else if (dropdown51 === 'Backcountry') {
+    maxValue = 50;
+    maxValueElev = 1000;
+    maxCategory = 5;
+    maxEstimated = 100;
+  } else {
+    return; // Invalid slider value
+  }
+
+  // Filter trails by attribute values (Miles and Elev_gain)
+  const filteredFeaturesUpdated = trails.features.filter(function (feature) {
+    console.log('Feature:', feature);
+
+    // Check if the feature has the 'Miles' property
+    if (
+      feature.properties &&
+      feature.properties.Miles !== null &&
+      feature.properties.Miles !== undefined
+    ) {
+      const attributeMiles = parseFloat(feature.properties.Miles.replace(',', '.'));
+      console.log('Attribute Miles:', attributeMiles);
+
+      // Check if the feature has the 'Elev_gain' property
+      if (
+        feature.properties.Elev_Gain !== null &&
+        feature.properties.Elev_Gain !== undefined
+      ) {
+        const attributeElevGain = parseFloat(feature.properties.Elev_Gain.replace(',', '.'));
+        console.log('Attribute Elev_gain:', attributeElevGain);
+
+        if (
+          feature.properties.Category !== null &&
+          feature.properties.Category !== undefined
+        ) {
+          const attributeCategory = parseFloat(feature.properties.Category.replace(',', '.'));
+          console.log('Attribute Category:', attributeCategory);
+
+          if (
+            feature.properties.Estimated !== null &&
+            feature.properties.Estimated !== undefined
+          ) {
+            const attributeEstimated = parseFloat(feature.properties.Estimated);
+            console.log('Attribute Estimated:', attributeEstimated);
+
+            return attributeMiles < maxValue && attributeElevGain < maxValueElev && attributeCategory < maxCategory && attributeEstimated < maxEstimated;
+          } else {
+            console.log('Missing Estimated Value');
+            return attributeMiles < maxValue && attributeElevGain < maxValueElev && attributeCategory < maxCategory;
+          }
+        } else {
+          console.log('Missing Category Value');
+          return attributeMiles < maxValue && attributeElevGain < maxValueElev;
+        }
+      } else {
+        console.log('Missing Elev_gain value');
+        return attributeMiles < maxValue;
+      }
+    } else {
+      console.log('Missing Miles value');
+      return true;
+    }
+  });
+
+  // Create a GeoJSON object with the updated filtered features
+  const filteredGeoJSON = turf.featureCollection(filteredFeaturesUpdated);
+  console.log('Filtered GeoJSON:', filteredGeoJSON);
+
+  // Clear the 'filtered' layer if it exists
+  if (map.getLayer('filtered-lines')) {
+    map.removeLayer('filtered-lines');
+  }
+  if (map.getSource('filtered-lines')) {
+    map.removeSource('filtered-lines');
+  }
+  if (map.getLayer('filtered-labels')) {
+    map.removeLayer('filtered-labels');
+  }
+  if (map.getSource('filtered-labels')) {
+    map.removeSource('filtered-labels');
+  }
+  if (map.getLayer('filtered')) {
+    map.removeLayer('filtered');
+  }
+  if (map.getSource('filtered')) {
+    map.removeSource('filtered');
+  }
+
+  // Add the updated filtered features as a new source and layer
+  map.addSource('filtered', {
+    type: 'geojson',
+    data: filteredGeoJSON
+  });
+  map.addLayer({
+    id: 'filtered-lines',
+    type: 'line',
+    source: 'filtered',
+    paint: {
+      'line-color': '#F7B32B',
+      'line-width': 4
+    }
+  });
+
+  // Add labels to the 'predefined-poi' layer with a halo effect
+  map.addLayer({
+    id: 'filtered-labels',
+    type: 'symbol',
+    source: 'filtered',
+    layout: {
+      'symbol-placement': 'line',
+      'text-field': ['get', 'MAPLABEL'],
+      'text-font': ['Open Sans Regular'],
+      'text-size': 12,
+      'text-offset': [0, 1], // Adjust the vertical offset as needed
+      'text-anchor': 'center'
+    },
+    paint: {
+      'text-color': 'black',
+      'text-halo-color': 'white', // Set the halo color to white
+      'text-halo-width': 2, // Adjust the halo width as desired
+    },
+  });
+}
 
 

@@ -38,8 +38,8 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 
 .close-button {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 5px;
+    right: 5px;
     padding: 1 px;
 }
 
@@ -97,7 +97,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 }
 
 /* Responsive Styles */
-@media only screen and (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   /* Adjust styles for smaller screens */
   #toggleFilter {
     padding: 5px;
@@ -122,6 +122,8 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   .selected {
     background-color: #007AFF;
   }
+
+  
   .tooltip {
   position: absolute;
   top: 100%;
@@ -143,12 +145,13 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 }
 #legendButton {
   position: absolute;
-  bottom: 33px; /* Adjust the value as per your preference */
+  bottom: 35px; /* Adjust the value as per your preference */
   left: 8px; /* Adjust the value as per your preference */
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
   padding: 10px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
   font-size: 14px;
   cursor: pointer;
 }
@@ -182,12 +185,12 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 #legend {
   position: absolute;
   bottom: 75px; /* Adjust the value as per your preference */
-  left: 8px; /* Adjust the value as per your preference */
+  left: 10px; /* Adjust the value as per your preference */
   background-color: #ffffff;
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
-  z-index: 1000; /* Ensure the legend appears above other elements */
+    z-index: 1000; /* Ensure the legend appears above other elements */
   max-height: 200px; /* Adjust the maximum height as per your preference */
   overflow-y: auto;
 display: none;
@@ -222,10 +225,11 @@ display: none;
 #togglefilterbutton {
   position: absolute;
   top: 10px; /* Adjust the value as per your preference */
-  left: 8px; /* Adjust the value as per your preference */
+  left: 10px; /* Adjust the value as per your preference */
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
   padding: 10px;
   font-size: 14px;
   cursor: pointer;
@@ -234,12 +238,13 @@ display: none;
 
 #togglefilterbutton2 {
   position: absolute;
-  top: 50px; /* Adjust the value as per your preference */
-  left: 8px; /* Adjust the value as per your preference */
+  top: 55px; /* Adjust the value as per your preference */
+  left: 10px; /* Adjust the value as per your preference */
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
   padding: 10px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
   font-size: 14px;
   cursor: pointer;
 }
@@ -316,7 +321,57 @@ display: none;
   border: none;
   border-radius: 4px;
   padding: 5px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
   font-size: 12px;
   cursor: pointer;
   z-index: 9999;
+}
+
+#roundabout-button {
+  position: absolute;
+  top: 105px;
+  right: 16px;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  color: rgb(0, 0, 0);
+  border: none;
+}
+
+#text-box-container {
+  position: absolute;
+  top: 130px;
+  right: 16px;
+  width: 200px;
+  height: 155px;
+  background-color: white;
+  padding: 7px;
+  display: none;
+  font-size: 11px;
+}
+
+.title {
+  font-size: 18px;
+  margin-top: 5px; 
+}
+
+.content {
+  font-size: 14px;
+}
+
+.link {
+  font-size: 14px;
+  color: black;
+}
+.link:visited {
+  color: #F7B32B; /* Visited link color */
+}
+
+.link:focus,
+.link:hover {
+  color: #9dafa4; /* Hover and focus link color */
+}
+
+.author {
+  font-size: 10px;
 }

@@ -27,13 +27,21 @@
 	<div class="box" id="alerts-box">
 	  <div class="box-content" id="alerts"></div>
 	</div>
+	<button id="roundabout-button">i</button>
+	<div id="text-box-container">
+		<h3 class="title">About</h3>
+		<p class="content">This website is part of a Master Thesis in Cartography.</p>
+		<a href="https://github.com/VnssHks/BlazingTheTrail/tree/main" class="link">Visit the GitHub Repository for more information!</a>
+		<p class="author">By: Vanessa Henkes</p>
+	  </div>
+	  
 	<button id='togglefilterbutton' class="filter-button" onclick="toggleFilter()">Select trip details</button>
 	<div id='toggleFilter' style="display:none">
 		<p class="bold-text">Select trip details</p>        
 		<div class="close-button">
 			<button class="close-filter-button" onclick="toggleFilter()">X</button>
 		</div>
-        <div class="filter-container">
+		<div class="filter-container">
             <label for='dropdown'>Please select your starting point/entrance of the park</label> <br>
             <select id="dropdown">
                 <option value="North Entrance">North Entrance</option>
@@ -42,15 +50,17 @@
                 <option value="East Entrance">East Entrance</option>
                 <option value="North East Entrance">North East Entrance</option>
 		
-            </select> <br>
+            </select> <br> 
+		
+            
 			
 	  <br>
- 	 <label for='slider'>How long are you planning to stay?   <span class="info-icon">ⓘ<span class="tooltip" data-tooltip="This slider is split into five steps, ranging from 1 Day to &gt;10 Days">
+ 	 <label for='slider'>How long are you planning to stay?   <span class="info-icon">ⓘ<span class="tooltip">
 		This slider is split into five steps,<br> ranging from 1 Day to &gt;10 Days
 	  </span></span></label>
 	 <input type="range" id="slider" min="1" max="5" value="1" />
 	 <br> <br>
-	 <label for='slider2'>How active do you want to be?   <span class="info-icon">ⓘ<span class="tooltip" data-tooltip="This slider is split into five steps, ranging from not active at all to very active">
+	 <label for='slider2'>How active do you want to be?   <span class="info-icon">ⓘ<span class="tooltip">
 		This slider is split into five steps,<br> ranging from not active at all to very active
 	  </span></span></label>
 	 <input type="range" id="slider2" min="1" max="5" value="1" />
@@ -113,7 +123,9 @@
 	<button id='togglefilterbutton2' class="filter-button" onclick="toggleFilter2()">Predefined Maps</button>
 	<div id='toggleFilter2' style="display:none">
         <div class="filter-container">
-            <label for='dropdown5'>Select one of these predefined Map Styles</label> <br> <br>
+            <label for="dropdown5"> <p class="bold-text">Select one of these predefined map styles</p>        
+			  </label>
+			  
             <select id="dropdown5">
                 <option value="Adventurer">Do it all Adventurer</option>
                 <option value="Picnicker">Value Picnicker</option>
@@ -122,7 +134,7 @@
                 <option value="Backcountry">Back Country Enthusiasts</option>
 		
             </select> <br> 
-		
+			<a href="http://link.springer.com/10.1007/s00267-013-0143-4" class="link">Where do the categories come from?</a>
             <div class="close-button">
 				<button class="close-filter-button" onclick="toggleFilter2()">X</button>
 			</div>

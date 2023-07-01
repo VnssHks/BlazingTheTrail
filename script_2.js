@@ -156,8 +156,8 @@ fetch('https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/Yellowston
       type: 'line',
       source: 'boundary',
       paint: {
-        'line-color': '#DEE6E6',
-        'line-width': 2
+        'line-color': '#000000',
+        'line-width': 1.5
       }
     });
   })
@@ -1000,7 +1000,7 @@ function togglePOIFilter() {
     map.setFilter("boundary", filter);
     map.setLayoutProperty("boundary", "visibility", "visible");
     map.setCenter([-110.629578, 44.480121]);
-    map.setZoom(8); // Set the zoom level to 10
+    map.setZoom(8); 
     // Clear the 'filtered' layer if it exists
     if (map.getLayer('filtered-lines')){
       map.removeLayer('filtered-lines')

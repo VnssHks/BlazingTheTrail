@@ -29,7 +29,7 @@ const popup = new mapboxgl.Popup({
   };
     
   
-  const pointLayers = ['individual-markers', 'individual-markers-filtered', 'cluster-markers', 'cluster-markers-filtered', 'POI'];
+  const pointLayers = ['individual-markers', 'individual-markers-filtered', 'cluster-markers', 'cluster-markers-filtered', 'POIs'];
   pointLayers.forEach(layer => {
     
     addPopupToLayer(layer, popup);
