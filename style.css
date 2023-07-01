@@ -143,52 +143,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 }
 
 }
-/* Responsive Styles */
-@media (max-width: 1023px) {
-  /* Adjust styles for smaller screens */
-  #toggleFilter {
-    padding: 5px;
-  }
-  
-  .button-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  
-  #bounding-box {
-    width: 80px;
-    height: 80px;
-  }
-    .round-button {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #DDDDDD;
-    border: black;
-  }
-  .selected {
-    background-color: #007AFF;
-  }
 
-  
-  .tooltip {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 100px;
-  padding: 5px;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #333;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s;
-  z-index: 1;
-}
-
-}
 #legendButton {
   position: absolute;
   bottom: 35px; /* Adjust the value as per your preference */
