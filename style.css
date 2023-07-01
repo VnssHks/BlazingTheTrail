@@ -159,8 +159,8 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
     height: 80px;
   }
     .round-button {
-    width: 25px;
-    height: 25px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     background-color: #000000;
     margin-right: 5px;
