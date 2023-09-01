@@ -1,0 +1,505 @@
+body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
+}
+@font-face {
+  font-family: 'Frutiger';
+  src: url('https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/Data/Frutiger.woff') format('woff');
+  /* Add additional font formats here if necessary */
+}
+
+#map { position: absolute; top: 0; bottom: 0; width: 100%; z-index: -1; }
+#toggleFilter {
+  position: fixed; /* or position: absolute; depending on your needs */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+#toggleFiltercanyon {
+  position: fixed; /* or position: absolute; depending on your needs */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+#toggleFilter2 {
+  position: fixed; /* or position: absolute; depending on your needs */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+#toggleFilter3 {
+  position: fixed; /* or position: absolute; depending on your needs */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow: auto;
+}
+
+  .filter-container {
+    position: relative;
+    padding-right: 30px; 
+    overflow: auto;
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 1 px;
+}
+
+.close-filter-button {
+    border: 1px solid #000000; /* Add border */
+    background-color: #ffffff;
+    font-size: 13px;
+    color: #000000;
+    cursor: pointer;
+}
+.bold-text {
+  font-weight: bold;
+}
+.button-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.button-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.round-button {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #DDDDDD;
+  margin-right: 5px;
+  border: black;
+}
+.selected {
+  background-color: #007AFF;
+
+}
+
+
+.button-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#bounding-box {
+  width: 100px; /* Default width */
+  height: 100px; /* Default height */
+  background-color: red;
+  margin-top: 10px;
+}
+
+/* Responsive Styles */
+@media (ax-width: 768px) {
+  /* Adjust styles for smaller screens */
+  #toggleFilter {
+    padding: 5px;
+  }
+  
+  .button-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  #bounding-box {
+    width: 80px;
+    height: 80px;
+  }
+    .round-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #DDDDDD;
+    margin-right: 5px;
+    border: black;
+  }
+  .selected {
+    background-color: #007AFF;
+  }
+
+  
+  .tooltip {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100px;
+  padding: 5px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+}
+
+.slider-container {
+  position: relative;
+  display: inline-block;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 1px;
+  font-size: 10px;
+}
+
+.min-value,
+.max-value {
+  font-size: 10px;
+  color: #000000;
+}
+
+#legendButton {
+  position: absolute;
+  bottom: 35px; /* Adjust the value as per your preference */
+  left: 8px; /* Adjust the value as per your preference */
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.legend-container {
+  position: relative;
+  top: 85%;
+  right: 85%;
+  background-color: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.legend-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.legend-label {
+  font-size: 14px;
+}
+#legend {
+  position: absolute;
+  bottom: 75px; /* Adjust the value as per your preference */
+  left: 10px; /* Adjust the value as per your preference */
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+    z-index: 1000; /* Ensure the legend appears above other elements */
+  max-height: 200px; /* Adjust the maximum height as per your preference */
+  overflow-y: auto;
+display: none;
+}
+
+
+#legend.show {
+  display: block;
+}
+
+.legend-line {
+  width: 40px;
+  height: 2px;
+  margin-right: 10px;
+}
+
+.legend-item img {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+
+.legend-item span {
+  font-size: 14px;
+}
+.legend-item .legend-icon.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+#togglefilterbutton {
+  position: absolute;
+  top: 10px; /* Adjust the value as per your preference */
+  left: 10px; /* Adjust the value as per your preference */
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+#togglefilterbuttoncanyon {
+  position: absolute;
+  top: 10px; /* Adjust the value as per your preference */
+  left: 10px; /* Adjust the value as per your preference */
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+#togglefilterbutton2 {
+  position: absolute;
+  top: 55px; /* Adjust the value as per your preference */
+  left: 10px; /* Adjust the value as per your preference */
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  cursor: pointer;
+}
+#togglefilterbutton3 {
+  position: absolute;
+  top: 55px; /* Adjust the value as per your preference */
+  left: 10px; /* Adjust the value as per your preference */
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+
+#switch {
+  position: absolute;
+  top: 10px; /* Adjust the value as per your preference */
+  left: 50%; /* Adjust the value as per your preference */
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#applyFilterButton {
+  background-color: #ffffff;
+  border-color: #000000;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#clearFilterButton {
+  background-color: #ffffff;
+  border-color: #000000;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+#applyFilterButtonCanyon {
+  background-color: #ffffff;
+  border-color: #000000;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#clearFilterButtonCanyon {
+  background-color: #ffffff;
+  border-color: #000000;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.info-icon {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  padding: 5px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+
+.info-icon:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+.box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 9999;
+  display: none;
+}
+
+.visible {
+  display: block; /* Class to control visibility */
+}
+
+
+.box-content.show {
+  display: none;
+}
+
+#togglealertsbutton {
+  position: fixed;
+  top: 10px;
+  right: 55px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 9999;
+}
+#togglealertsbuttoncanyon {
+  position: fixed;
+  top: 10px;
+  right: 55px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+#alerts-box-canyon{
+  position: absolute;
+  max-height: 400px; /* Set a maximum height for scrollability */
+  overflow-y: auto; ;
+}
+#roundabout-button {
+  position: absolute;
+  top: 105px;
+  right: 16px;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  color: rgb(0, 0, 0);
+  border: none;
+}
+
+#text-box-container {
+  position: absolute;
+  top: 130px;
+  right: 16px;
+  width: 200px;
+  height: 155px;
+  background-color: white;
+  padding: 7px;
+  font-size: 11px;
+  display:none;
+}
+
+#text-box-container.show{
+  display: block;
+}
+
+.title {
+  font-size: 18px;
+  margin-top: 5px; 
+}
+
+.content {
+  font-size: 14px;
+}
+
+.link {
+  font-size: 14px;
+  color: black;
+}
+.link:visited {
+  color: #F7B32B; /* Visited link color */
+}
+
+.link:focus,
+.link:hover {
+  color: #9dafa4; /* Hover and focus link color */
+}
+
+.author {
+  font-size: 10px;
+}
