@@ -203,6 +203,9 @@ body { margin: 0;
 }
 #switch {
     bottom: 20px; /* Adjusted position for mobile screens */
+    width: 60px; /* Adjusted width for mobile screens */
+    height: 30px; /* Adjusted height for mobile screens */
+    font-size: 12px; /* Adjusted font size for mobile screens */
   }
 
 .slider-container {
