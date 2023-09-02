@@ -202,11 +202,12 @@ body { margin: 0;
   z-index: 1;
 }
 #switch {
-    bottom: 20px; /* Adjusted position for mobile screens */
+    position: fixed;
+    bottom: 20px; /* Adjusted position for the bottom of mobile screens */
     width: 60px; /* Adjusted width for mobile screens */
     height: 30px; /* Adjusted height for mobile screens */
     font-size: 12px; /* Adjusted font size for mobile screens */
-  }
+  }}
 
 .slider-container {
   position: relative;
