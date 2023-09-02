@@ -278,7 +278,7 @@ function toggleFilter() {
 
   if (filter.style.display === 'none') {
     filter.style.display = 'block';
-    filter2.style.display = 'none';x
+    filter2.style.display = 'none';
   } else {
     filter.style.display = 'none';
   }

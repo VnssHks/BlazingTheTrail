@@ -42,16 +42,58 @@ const addPopupToLayer = (layer, popup) => {
     popup.remove();
   });
 };
+const addClickPopupToLayer = (layer, popup) => {
+  map.on('click', layer, (e) => {
+    const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
+
+    if (!features.length) {
+      return;
+    }
+
+    const feature = features[0];
+    const coordinates = e.lngLat;
+    const description = feature.properties.POINAME || feature.properties.MAPLABEL ||'';
+    const poiType = feature.properties.POITYPE || '';
+    const POITYPE = feature.properties.poiType || '';
+
+    let popupContent = `<strong>${poiType}${POITYPE}</strong><br>${description}`;
+    console.log(feature.properties)
+    if (lineLayers.includes(layer)) {
+      const length = feature.properties.Miles || '';
+      popupContent += `<br>Length: ${length} miles`;
+      const metricLength = feature.properties.Km || feature.properties.KM || '';
+      popupContent += `<br>Length: ${metricLength} kilometers`;
+    }
+
+    popup.setLngLat(coordinates).setHTML(popupContent).addTo(map);
+  });
+};
+
 
 //These are the layers to which popups are added
 const pointLayers = ['individual-markers','individual-markers-canyon', 'individual-markers-filtered','individual-markers-filtered-canyon', 'cluster-markers','cluster-markers-canyon', 'cluster-markers-filtered', 'cluster-markers-filtered-canyon','POIs', 'POIsGC', 'individual-markers-filtered-park2'];
 pointLayers.forEach(layer => {
-  addPopupToLayer(layer, popup);
+  if ('ontouchstart' in window) {
+    // For mobile devices, use click events instead of hover
+    addClickPopupToLayer(layer, popup);
+  } else {
+    // For desktop devices, use hover events
+    addPopupToLayer(layer, popup);
+  }
 });
+
+
+
 
 const lineLayers = ['trails', 'boundary', 'roads', 'filtered-lines', 'filtered-lines-canyon','trailsGC'];
 lineLayers.forEach(layer => {
-  addPopupToLayer(layer, popup);
+  if ('ontouchstart' in window) {
+    // For mobile devices, use click events instead of hover
+    addClickPopupToLayer(layer, popup);
+  } else {
+    // For desktop devices, use hover events
+    addPopupToLayer(layer, popup);
+  }
 });
 
 //This code provides the POIs of both parks with the functionality to get bigger/smaller depending on the zoom layer, with a maximum size change to as to not have everything overlapping

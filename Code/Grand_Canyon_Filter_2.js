@@ -511,7 +511,7 @@ function toggleFilter3() {
         'text-halo-width': 2, 
       },
     });
-    addEntranceLayerpark2();
+    //addEntranceLayerpark2();
   
   }
   
@@ -521,7 +521,7 @@ function toggleFilter3() {
     if (!map.getSource('entrancepark2')) {
       map.addSource('entrancepark2', {
         type: 'geojson',
-        data: entranceStationsGC 
+        data: entranceStationsGC,
       });
   
       map.addLayer({
