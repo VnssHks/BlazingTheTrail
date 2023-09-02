@@ -1,31 +1,29 @@
+// Function to toggle the display of filter elements
 function toggleFilter3() {
     var filter = document.getElementById('toggleFilter3');
     var filter1 = document.getElementById('toggleFiltercanyon');
 
     if (filter.style.display === 'none') {
         filter.style.display = 'block';
-        filter1.style.display = 'none'; // Close the other filter box
+        filter1.style.display = 'none'; 
     } else {
         filter.style.display = 'none';
     }
 }
-  
+  // Event listener for changes in the dropdown element with ID 'dropdown5park2'
    var dropdown5park2 = document.getElementById('dropdown5park2');
-    // Add event listener for the 'change' event
   dropdown5park2.addEventListener('change', function() {
     toggleFilter3();
-      // Get the selected value
       var dropdown51park2 = dropdown5park2.value;
-    
-      // Call your function with the selected value
+     
+      // Call other functions to update the map based on the selected value
       Predefined_Mapspark2(dropdown51park2);
       FilterPointsOfInterestpark2(dropdown51park2);
       addEntranceLayerpark2();
     });
   
     
-  
-  ///POI FILTERING
+// Function to filter points of interest on the map
   function FilterPointsOfInterestpark2(dropdown51park2) {
   
     if (map.getLayer('cluster-markers-filtered-park2')) {
@@ -79,12 +77,10 @@ function toggleFilter3() {
       map.removeSource('predefined-poi-park2');
     }
     map.setLayoutProperty('POIsGC', 'visibility', 'none');
-    // Define the filter criteria based on the selected dropdown value
     let filterCriteria;
     let iconImage;
   
     if (dropdown51park2 === 'Adventurer') {
-      // Set filter criteria for Option 1
       filterCriteria = {
         POITYPE: [
           'Museum',
@@ -114,7 +110,6 @@ function toggleFilter3() {
         ],
       };
     } else if (dropdown51park2 === 'Windshield') {
-      // Set filter criteria for Option 2
       filterCriteria = {
         POITYPE: [
           'Museum',
@@ -132,20 +127,17 @@ function toggleFilter3() {
           'Boat Launch',
           'Train Station',
           'Tunnel',  
-        ], // Example combination of POITYPE values for Option 2
+        ], 
       };
     } else if (dropdown51park2 === 'Picnicker') {
-      // Set filter criteria for Option 3
       filterCriteria = {
-        POITYPE: ['Picnic Area'], // Example combination of POITYPE values for Option 3
+        POITYPE: ['Picnic Area'], 
       };
     } else if (dropdown51park2 === 'Comfort') {
-      // Set filter criteria for Option 3
       filterCriteria = {
-        POITYPE: ['Food Service', 'Lodging', 'Lodge'], // Example combination of POITYPE values for Option 3
+        POITYPE: ['Food Service', 'Lodging', 'Lodge'], 
       };
     } else if (dropdown51park2 === 'Backcountry') {
-      // Set filter criteria for Option 3
       filterCriteria = {
         POITYPE: [
           'Store',
@@ -162,41 +154,36 @@ function toggleFilter3() {
           'Monument',
           'Viewpoint',
           'Point Of Interest',
-        ], // Example combination of POITYPE values for Option 3
+        ], 
       };
     } else {
-      return; // Invalid dropdown value
+      return; 
     }
   
-    // Filter points of interest based on the filter criteria
     const filteredPointspark2 = POIsGC.features.filter(function (feature) {
       const poiTypepark2 = feature.properties.POITYPE;
       return filterCriteria.POITYPE.includes(poiTypepark2);
     });
   
-    // Generate filtered GeoJSON
     const filteredGeoJSONpark2 = {
       type: 'FeatureCollection',
       features: filteredPointspark2,
     };
   
-  // Update the filteredGeoJSON features with the appropriate icon image names
   filteredGeoJSONpark2.features.forEach(function (feature) {
     const poiTypepark2 = feature.properties.POITYPE;
     feature.properties.iconImage = iconMapping[poiTypepark2];
     feature.properties = { ...feature.properties };
   });
   
-  // Create a cluster source for the filtered points
   map.addSource('clustered-markers-filtered-park2', {
     type: 'geojson',
-    data: filteredGeoJSONpark2, // Use the filtered GeoJSON data
+    data: filteredGeoJSONpark2,
     cluster: true,
-    clusterRadius: 20 // Adjust the cluster radius as desired
+    clusterRadius: 20 
   });
   
   map.on('load', function() {
-    // Create a layer for the cluster markers
     map.addLayer({
       id: 'cluster-markers-filtered-park2',
       type: 'symbol',
@@ -215,34 +202,28 @@ function toggleFilter3() {
     });
   });
   
-  // Create a layer for the individual markers
   map.addLayer({
     id: 'individual-markers-filtered-park2',
     type: 'symbol',
     source: 'clustered-markers-filtered-park2',
     filter: ['!', ['has', 'point_count']],
     layout: {
-      'icon-image': '{icon}', // Use the icon mapping for the marker icons
-      'icon-size': 1 // Adjust the icon size as desired
+      'icon-image': '{icon}', 
+      'icon-size': 1 
     },
     paint: {}
   });
   
-  // Define an empty array to store the filtered markers
   var markersFilteredpark2 = [];
   
-  // Iterate through each filtered point
   filteredGeoJSONpark2.features.forEach(function (point, index) {
     var poiTypepark2 = point.properties.POITYPE;
   
-    // Check if the poi type has a corresponding icon URL
     if (iconMapping.hasOwnProperty(poiTypepark2)) {
-      // Remove the existing image if it exists
       if (map.hasImage('marker-filtered-park2-' + index)) {
         map.removeImage('marker-filtered-park2-' + index);
       }
   
-      // Create a marker object
       var marker = {
         type: 'Feature',
         geometry: {
@@ -250,15 +231,13 @@ function toggleFilter3() {
           coordinates: point.geometry.coordinates
         },
         properties: {
-          icon: 'marker-filtered-park2-' + index // Use the index as the icon name
+          icon: 'marker-filtered-park2-' + index 
         }
       };
       Object.assign(marker.properties, point.properties);
   
-      // Add the marker to the valid markers array
       markersFilteredpark2.push(marker);
   
-      // Add the image as an icon to the map
       map.loadImage(iconMapping[poiTypepark2], function (error, image) {
         if (error) {
           console.error('Failed to load image:', error);
@@ -273,7 +252,6 @@ function toggleFilter3() {
     }
   });
   
-  // Update the data of the cluster source for the filtered points
   map.getSource('clustered-markers-filtered-park2').setData({
     type: 'FeatureCollection',
     features: markersFilteredpark2
@@ -284,38 +262,33 @@ function toggleFilter3() {
       console.log('Number of Features Filtered (poi layer):', filteredPointspark2.length);
     
       const predefinedPOITypespark2 = ['Parking Lot', 'Post Office', 'Ranger Station', 'Potable Water','Restroom', 'Trailhead', 'Entrance Station', 'Barn', 'Building', 'Cemetery', 'Chapel', 'Fire Station', 'First Aid Station', 'Gas Station', 'Headquarters', 'Lake', 'Potable Water', 'Shelter', 'Telephone', 'Tower'];
-      // Filter the predefined POI types from the entire dataset
       const predefinedFeaturespark2 = POIs.features.filter((feature) => {
         const poiTypepark2 = feature.properties.POITYPE;
       
-        // Check if the POI type is in the predefined types array
         return predefinedPOITypespark2.includes(poiTypepark2);
       });
       predefinedGeoJSONpark2.features = predefinedFeaturespark2;
       
-      // Add the predefined POIs as a new source and layer on the map
       map.addSource('predefined-poi-park2', {
         type: 'geojson',
         data: predefinedGeoJSONpark2, 
       });
-  // Update the filteredGeoJSON features with the appropriate icon image names
-  predefinedGeoJSONpark2.features.forEach(function (feature) {
+
+      predefinedGeoJSONpark2.features.forEach(function (feature) {
     const poiTypepark2 = feature.properties.POITYPE;
     feature.properties.iconImage = iconMapping[poiTypepark2];
     feature.properties = { ...feature.properties };
   
   });
   
-  // Create a cluster source
   map.addSource('clustered-markers-park2', {
     type: 'geojson',
     data: predefinedGeoJSONpark2,
     cluster: true,
-    clusterRadius: 20 // Adjust the cluster radius as desired
+    clusterRadius: 20 
   });
   
   map.on('load', function() {
-    // Create a layer for the cluster markers
     map.addLayer({
       id: 'cluster-markers-park2',
       type: 'symbol',
@@ -333,32 +306,28 @@ function toggleFilter3() {
       }
     })});
   
-  // Create a layer for the individual markers
   map.addLayer({
     id: 'individual-markers-park2',
     type: 'symbol',
     source: 'clustered-markers-park2',
     filter: ['!', ['has', 'point_count']],
     layout: {
-      'icon-image': '{icon}', // Use the icon mapping for the marker icons
-      'icon-size': 1 // Adjust the icon size as desired
+      'icon-image': '{icon}', 
+      'icon-size': 1 
     },
     paint: {}
   });
-  // Define an empty array to store the filtered markers
+
   var markerspark2 = [];
-  // Iterate through each predefined point
+
   predefinedGeoJSONpark2.features.forEach(function (point, index) {
     var poiTypepark2 = point.properties.POITYPE;
   
-    // Check if the poi type has a corresponding icon URL
     if (iconMapping.hasOwnProperty(poiTypepark2)) {
-      // Remove the existing image if it exists
       if (map.hasImage('marker-park2-' + index)) {
         map.removeImage('marker-park2-' + index);
       }
   
-      // Create a marker object
       var marker = {
         type: 'Feature',
         geometry: {
@@ -366,15 +335,13 @@ function toggleFilter3() {
           coordinates: point.geometry.coordinates
         },
         properties: {
-          icon: 'marker-park2-' + index // Use the index as the icon name
+          icon: 'marker-park2-' + index 
         }
       };
       Object.assign(marker.properties, point.properties);
   
-      // Add the marker to the valid markers array
       markerspark2.push(marker);
   
-      // Add the image as an icon to the map
       map.loadImage(iconMapping[poiTypepark2], function (error, image) {
         if (error) {
           console.error('Failed to load image:', error); 
@@ -392,7 +359,6 @@ function toggleFilter3() {
   
   });
   
-  // Update the data of the cluster source
   map.getSource('clustered-markers-park2').setData({
     type: 'FeatureCollection',
     features: markerspark2
@@ -402,14 +368,13 @@ function toggleFilter3() {
   
   
   
-  
+  // Function to update the map based on predefined criteria
   function Predefined_Mapspark2(dropdown51park2) {
     let maxValue;
     let maxValueElev;
     let maxCategory;
     let maxEstimated;
   
-    // Set the max value based on the slider value
     if (dropdown51park2 === 'Adventurer') {
       maxValue = 50;
       maxValueElev = 1000;
@@ -438,14 +403,12 @@ function toggleFilter3() {
       maxCategory = 5;
       maxEstimated = 100;
     } else {
-      return; // Invalid slider value
+      return; 
     }
   
-    // Filter trails by attribute values (Miles and Elev_gain)
     const filteredFeaturesUpdatedpark2 = trailsGC.features.filter(function (feature) {
       console.log('Feature:', feature);
   
-      // Check if the feature has the 'Miles' property
       if (
         feature.properties &&
         feature.properties.Miles !== null &&
@@ -454,7 +417,6 @@ function toggleFilter3() {
         const attributeMiles = parseFloat(feature.properties.Miles);
         console.log('Attribute Miles:', attributeMiles);
   
-        // Check if the feature has the 'Elev_gain' property
         if (
           feature.properties.z_range !== null &&
           feature.properties.z_range !== undefined
@@ -495,11 +457,9 @@ function toggleFilter3() {
       }
     });
   
-    // Create a GeoJSON object with the updated filtered features
     const filteredGeoJSONpark2 = turf.featureCollection(filteredFeaturesUpdatedpark2);
     console.log('Filtered GeoJSON:', filteredGeoJSONpark2);
   
-    // Clear the 'filtered' layer if it exists
     if (map.getLayer('filtered-lines-park2')) {
       map.removeLayer('filtered-lines-park2');
     }
@@ -519,7 +479,6 @@ function toggleFilter3() {
       map.removeSource('filtered-park2');
     }
   
-    // Add the updated filtered features as a new source and layer
     map.addSource('filtered-park2', {
       type: 'geojson',
       data: filteredGeoJSONpark2
@@ -534,7 +493,6 @@ function toggleFilter3() {
       }
     });
   
-    // Add labels to the 'predefined-poi' layer with a halo effect
     map.addLayer({
       id: 'filtered-labels-park2',
       type: 'symbol',
@@ -544,30 +502,28 @@ function toggleFilter3() {
         'text-field': ['get', 'MAPLABEL'],
         'text-font': ['Open Sans Regular'],
         'text-size': 12,
-        'text-offset': [0, 1], // Adjust the vertical offset as needed
+        'text-offset': [0, 1], 
         'text-anchor': 'center'
       },
       paint: {
         'text-color': 'black',
-        'text-halo-color': 'white', // Set the halo color to white
-        'text-halo-width': 2, // Adjust the halo width as desired
+        'text-halo-color': 'white', 
+        'text-halo-width': 2, 
       },
     });
-    addEntranceLayer();
+    addEntranceLayerpark2();
   
   }
   
   
-   
-  // Function to add the 'entrance' source and layers
+   // Function to add entrance stations to the map
   function addEntranceLayerpark2() {
     if (!map.getSource('entrancepark2')) {
       map.addSource('entrancepark2', {
         type: 'geojson',
-        data: entranceStationsGC // Use the fetched entrance station data
+        data: entranceStationsGC 
       });
   
-      // Add the 'cluster-markers' layer for entrance stations
       map.addLayer({
         id: 'cluster-markers-park2',
         type: 'symbol',
@@ -585,15 +541,14 @@ function toggleFilter3() {
         }
       });
   
-      // Add the 'individual-markers' layer for entrance stations
       map.addLayer({
         id: 'individual-markers-park2',
         type: 'symbol',
         source: 'clustered-entrance-park2',
         filter: ['!', ['has', 'point_count']],
         layout: {
-          'icon-image': '{icon}', // Use the icon mapping for the marker icons
-          'icon-size': 1 // Adjust the icon size as desired
+          'icon-image': '{icon}', 
+          'icon-size': 1 
         },
         paint: {}
       });

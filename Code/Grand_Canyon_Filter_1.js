@@ -1,5 +1,5 @@
+// Function to update the center coordinates, based on the dropdown menu regarding the entrances (Grand Canyon)
 function updateCenterCoordinatescanyon(selectedOption) {
-    // Update center latitude and longitude based on the selected option
     if (selectedOption === 'North Rim Entrance') {
       centerLatitudeCanyon = 36.210327;
       centerLongitudeCanyon = -112.056510;
@@ -11,64 +11,56 @@ function updateCenterCoordinatescanyon(selectedOption) {
       centerLongitudeCanyon = -111.830217;
     }
     console.log('Center Coordinates Canyon:', centerLatitudeCanyon, centerLongitudeCanyon);
-      // Update the map center with the new coordinates
       map.setCenter([centerLongitudeCanyon, centerLatitudeCanyon]);
   
   }
-  let trailsGC; // Variable to store the fetched trails GeoJSON data
-  let filteredFeaturesCanyon; 
-// Define and assign a value to the predefinedGeoJSON variable
+
+// Define variables and set up event listeners
+let trailsGC; 
+let filteredFeaturesCanyon; 
+
 const filteredPointGeoJSONCanyon = {
     type: 'FeatureCollection',
-    features: [] // Add your predefined POI features here
+    features: []
   };
 
-  // Define and assign a value to the predefinedGeoJSON variable
 const predefinedGeoJSONCanyon = {
     type: 'FeatureCollection',
-    features: [] // Add your predefined POI features here
+    features: [] 
   };
 
-  
+// Add event listeners for filter and clear buttons
 document.getElementById("applyFilterButtonCanyon").addEventListener("click", applyFilterCanyon);
 document.getElementById("clearFilterButtonCanyon").addEventListener("click", clearFilterCanyon);
-// For the second group of buttons
+
+// Function to toggle the selected state of a POI filter button
 const poiFilterButtonsCanyon = document.querySelectorAll('.poi-filter-button-canyon');
 poiFilterButtonsCanyon.forEach((button) => {
   button.addEventListener('click', togglePOIFilterCanyon);
 });
 function togglePOIFilterCanyon() {
-    //Toggle the 'selected' class of the clicked button
     this.classList.toggle('selected');
   }
+  
+// Function to apply filters to trails and POIs
 function applyFilterCanyon() {
-    // Get the value of the dropdown menu
     const dropdownValueCanyon = document.getElementById("dropdownpark2").value;
-
+    
+    // Calculate bounding box based on slider values and center coordinates
     const sliderValue2canyon = parseInt(document.getElementById('slider2canyon').value, 10);
     console.log('Slider value:', sliderValue2canyon);
 
-
-  
-    // Call the updateCenterCoordinates function with the dropdown value
     updateCenterCoordinatescanyon(dropdownValueCanyon);
     
-  
     const sliderValuecanyon = document.getElementById("slidercanyon").value;
-    //Specify the desired bounding box dimensions in kilometers
-    const bboxWidth = 0.00025; // Width in kilometers
-    const bboxHeight = 0.00025; // Height in kilometers
-    
-    // Calculate the scaled width and height based on the slider value
+
+    const bboxWidth = 0.00025; 
+    const bboxHeight = 0.00025; 
     const scaledWidth = bboxWidth * sliderValuecanyon;
     const scaledHeight = bboxHeight * sliderValuecanyon;
-
-    // Convert the scaled bounding box dimensions to the desired unit of measurement
     const bboxWidthMeters = turf.distance([centerLongitudeCanyon, centerLatitudeCanyon], [centerLongitudeCanyon + (scaledWidth / 111.32), centerLatitudeCanyon], { units: 'kilometers' }) * 1000;
     const bboxHeightMeters = turf.distance([centerLongitudeCanyon, centerLatitudeCanyon], [centerLongitudeCanyon, centerLatitudeCanyon + (scaledHeight / 111.32)], { units: 'kilometers' }) * 1000;
-    
-    const bboxSize = bboxWidthMeters * bboxHeightMeters; // Size in meters
-
+    const bboxSize = bboxWidthMeters * bboxHeightMeters; 
     const bboxCoordinatesCanyon = [
         centerLongitudeCanyon - (bboxWidthMeters / 2),
         centerLatitudeCanyon - (bboxHeightMeters / 2),
@@ -76,11 +68,10 @@ function applyFilterCanyon() {
         centerLatitudeCanyon + (bboxHeightMeters / 2)
       ];
 
-      // Create a new bounding box polygon
 const bboxPolygon = turf.bboxPolygon(bboxCoordinatesCanyon);
 map.setCenter([centerLongitudeCanyon, centerLatitudeCanyon]);
 
-//Comment out UNDERNEATH TO get rid of BBOX DISPLAY
+//Comment out UNDERNEATH TO get rid of BBOX DISPLAY - Uncomment to check whether the box makes sense in size, etc. when adding new NPs
 // Clear the 'filtered' layer if it exists
 //if (map.getLayer('bbox')) {
   //  map.removeLayer('bbox');
@@ -105,34 +96,28 @@ map.setCenter([centerLongitudeCanyon, centerLatitudeCanyon]);
  // }
 //});
 
-  // Filter the trails by all the filtering functions
+
   filterTrailsByBoundingBoxCanyon(bboxCoordinatesCanyon);
-  console.log('Filtered Features:', filteredFeaturesCanyon); // Add this line
+  console.log('Filtered Features:', filteredFeaturesCanyon); 
   desiredActivityCanyon(sliderValue2canyon, filteredFeaturesCanyon);
   const poiFilterButtonsCanyon = document.querySelectorAll('.poi-filter-button-canyon.selected');
 
-  // Create an array to store the selected POI types
   const selectedPOITypesCanyon = [];
 
-  // Loop through the selected buttons and extract the POI types
   poiFilterButtonsCanyon.forEach((button) => {
     const poiTypeCanyon = button.dataset.poiType;
     selectedPOITypesCanyon.push(poiTypeCanyon);
   });
 
-  // Call the filterPOIs function with the selected POI types
   filterPOIsCanyon(selectedPOITypesCanyon);
-// Call the filterPOIsByBoundingBox function to filter the layers by bbox
-filterPOIsByBoundingBoxCanyon(bboxCoordinatesCanyon, predefinedGeoJSONCanyon, filteredPointGeoJSONCanyon);
- // leavearea(dropdownValue2);
-  // Re-add the 'entrance' source and layers
+  filterPOIsByBoundingBoxCanyon(bboxCoordinatesCanyon, predefinedGeoJSONCanyon, filteredPointGeoJSONCanyon);
+ 
   if (!map.getSource('entranceGC')) {
     map.addSource('entranceGC', {
       type: 'geojson',
-      data: entranceStationsGC // Use the fetched entrance station data
+      data: entranceStationsGC 
     });
 
-    // Add the 'cluster-markers' layer for entrance stations
     map.addLayer({
       id: 'cluster-markers-canyon',
       type: 'symbol',
@@ -150,15 +135,14 @@ filterPOIsByBoundingBoxCanyon(bboxCoordinatesCanyon, predefinedGeoJSONCanyon, fi
       }
     });
 
-    // Add the 'individual-markers' layer for entrance stations
     map.addLayer({
       id: 'individual-markers-canyon',
       type: 'symbol',
       source: 'clustered-entrance-canyon',
       filter: ['!', ['has', 'point_count']],
       layout: {
-        'icon-image': '{icon}', // Use the icon mapping for the marker icons
-        'icon-size': 1 // Adjust the icon size as desired
+        'icon-image': '{icon}', 
+        'icon-size': 1 
       },
       paint: {}
     });
@@ -166,51 +150,40 @@ filterPOIsByBoundingBoxCanyon(bboxCoordinatesCanyon, predefinedGeoJSONCanyon, fi
 
 
 }
-  
-//IT FUCKING WORKS - BBOX FILTERING
+
+// Function to filter trails based on a bounding box
 function filterTrailsByBoundingBoxCanyon(bbox) {
-    // Convert the bounding box to a Polygon feature
     const bboxPolygon = turf.bboxPolygon(bbox);
   
-    // Filter the trails based on the bounding box
     filteredFeaturesCanyon = trailsGC.features.flatMap(function (feature) { // Remove 'let' here
-      // Check if the feature has a valid geometry
       if (!feature.geometry || !feature.geometry.type || !feature.geometry.coordinates) {
         console.log('Invalid feature:', feature);
-        return []; // Skip features without valid geometry
+        return []; 
       }
   
-      // Convert MultiLineString to LineString if necessary
       if (feature.geometry.type === 'MultiLineString') {
         const lineStrings = feature.geometry.coordinates.flatMap(function (coordinates) {
-          // Create new LineString feature with original properties
           const lineString = turf.lineString(coordinates, feature.properties);
   
-          // Check if any point of the lineString intersects the bounding box polygon
           const intersects = lineString.geometry.coordinates.some(function (coordinate) {
             const point = turf.point(coordinate);
             return turf.booleanPointInPolygon(point, bboxPolygon);
           });
   
-          // Return the LineString feature if it intersects the bounding box
           return intersects ? [lineString] : [];
         });
   
-        // Return the new LineString features
         return lineStrings;
       }
   
-      // Check if any point of the trail intersects the bounding box polygon
       const intersects = feature.geometry.coordinates.some(function (coordinate) {
         const point = turf.point(coordinate);
         return turf.booleanPointInPolygon(point, bboxPolygon);
       });
   
-      // Return the original feature if it intersects the bounding box
       return intersects ? [feature] : [];
     });
   
-    // Clear the 'filtered' layer if it exists
     if (map.getLayer('filtered-lines-canyon')){
       map.removeLayer('filtered-lines-canyon')
     }
@@ -230,7 +203,6 @@ function filterTrailsByBoundingBoxCanyon(bbox) {
       map.removeSource('filtered-canyon');
     }
   
-    // Add the filtered features as a new source and layer
     map.addSource('filtered-canyon', {
       type: 'geojson',
       data: {
@@ -249,7 +221,6 @@ function filterTrailsByBoundingBoxCanyon(bbox) {
       }
     });
     
-    // Add labels to the 'predefined-poi' layer with a halo effect
     map.addLayer({
       id: 'filtered-labels-canyon',
       type: 'symbol',
@@ -259,13 +230,13 @@ function filterTrailsByBoundingBoxCanyon(bbox) {
       'text-field': ['get', 'MAPLABEL'],
       'text-font': ['Open Sans Regular'],
       'text-size': 12,
-      'text-offset': [0, 1], // Adjust the vertical offset as needed
+      'text-offset': [0, 1], 
       'text-anchor': 'center'
         },
       paint: {
         'text-color': 'black',
-        'text-halo-color': 'white', // Set the halo color to white
-        'text-halo-width': 2, // Adjust the halo width as desired
+        'text-halo-color': 'white', 
+        'text-halo-width': 2, 
       },
     });
   }
@@ -308,11 +279,10 @@ function filterTrailsByBoundingBoxCanyon(bbox) {
       maxCategory =  5;
       maxEstimated = 1000;
     } else {
-      return; // Invalid slider value
+      return; 
     }
 
-   // Filter trails by attribute values (Miles and Elev_gain)
-const filteredFeaturesUpdatedCanyon = filteredFeaturesCanyon.filter(function (feature) {
+    const filteredFeaturesUpdatedCanyon = filteredFeaturesCanyon.filter(function (feature) {
     console.log('Feature', feature);
   if (
     feature.properties &&
@@ -322,7 +292,6 @@ const filteredFeaturesUpdatedCanyon = filteredFeaturesCanyon.filter(function (fe
   const attributeMiles = parseFloat(feature.properties.Miles);
     console.log('Attribute Miles:', attributeMiles);
 
-    // Check if the feature has the 'Elev_gain' property
     if (
       feature.properties.z_range !== null &&
       feature.properties.z_range !== undefined
@@ -355,17 +324,16 @@ const filteredFeaturesUpdatedCanyon = filteredFeaturesCanyon.filter(function (fe
       }
     } else {
       console.log('Missing z-range value');
-      return true; // Include trails with missing or null Elev_gain
+      return true; 
     }
   } else {
     console.log('Missing Miles value');
-    return true; // Include trails with missing or null Miles
+    return true; 
   }
 });
-  // Create a GeoJSON object with the updated filtered features
+
   const filteredGeoJSONCanyon = turf.featureCollection(filteredFeaturesUpdatedCanyon);
   
-  // Clear the 'filtered' layer if it exists
   if (map.getLayer('filtered-lines-canyon')){
     map.removeLayer('filtered-lines-canyon')
   }
@@ -385,7 +353,6 @@ const filteredFeaturesUpdatedCanyon = filteredFeaturesCanyon.filter(function (fe
     map.removeSource('filtered-canyon');
   }
 
-  // Add the updated filtered features as a new source and layer
   map.addSource('filtered-canyon', {
     type: 'geojson',
     data: filteredGeoJSONCanyon
@@ -400,7 +367,6 @@ const filteredFeaturesUpdatedCanyon = filteredFeaturesCanyon.filter(function (fe
     }
   });
   
-  // Add labels to the 'predefined-poi' layer with a halo effect
   map.addLayer({
     id: 'filtered-labels-canyon',
     type: 'symbol',
@@ -410,18 +376,19 @@ const filteredFeaturesUpdatedCanyon = filteredFeaturesCanyon.filter(function (fe
     'text-field': ['get', 'MAPLABEL'],
     'text-font': ['Open Sans Regular'],
     'text-size': 12,
-    'text-offset': [0, 1], // Adjust the vertical offset as needed
+    'text-offset': [0, 1], 
     'text-anchor': 'center'
       },
     paint: {
       'text-color': 'black',
-      'text-halo-color': 'white', // Set the halo color to white
-      'text-halo-width': 2, // Adjust the halo width as desired
+      'text-halo-color': 'white', 
+      'text-halo-width': 2, 
     },
   });
  
 }
 
+// Function to filter POIs based on selected types
 function filterPOIsCanyon(selectedPOITypesCanyon) {
   if (map.getLayer('poi-features-canyon')) {
     map.removeLayer('poi-features-canyon');
@@ -435,34 +402,28 @@ function filterPOIsCanyon(selectedPOITypesCanyon) {
   if (map.getSource('predefined-poi-features-canyon')) {
     map.removeSource('predefined-poi-features-canyon');
   }
-  // Define the specific POI types for the predefined POIs
   const predefinedPOITypesCanyon = ['Parking Lot', 'Post Office', 'Ranger Station','Restroom', 'Trailhead', 'Entrance Station', 'Barn', 'Building', 'Cemetery', 'Chapel', 'Fire Station', 'First Aid Station', 'Gas Station', 'Headquarters', 'Lake', 'Potable Water', 'Shelter', 'Telephone', 'Tower'];
 
   map.setLayoutProperty('POIsGC', 'visibility', 'none');
   console.log('Selected POI Types:', selectedPOITypesCanyon);
 
-  // Flatten the selected POI types array
   const selectedTypesCanyon = selectedPOITypesCanyon.flatMap((types) =>
     types.split(',').map((type) => type.trim())
   );
   console.log(selectedTypesCanyon); 
 
-  // Filter the POIs based on selected POI types
   const filteredFeaturesCanyon = POIsGC.features.filter((feature) => {
     const poiTypeCanyon = feature.properties.POITYPE;
 
-    // Check if the POI type is in the selected types array
     return selectedTypesCanyon.includes(poiTypeCanyon);
   });
   filteredPointGeoJSONCanyon.features = filteredFeaturesCanyon;
 
-  // Create a GeoJSON object with the filtered features
   const filteredGeoJSONCanyon = {
     type: 'FeatureCollection',
     features: filteredFeaturesCanyon,
   };
 
-  // Add the filtered POIs as a new source and layer on the map
   map.addSource('poi-features-canyon', {
     type: 'geojson',
     data: filteredGeoJSONCanyon,
@@ -471,16 +432,13 @@ function filterPOIsCanyon(selectedPOITypesCanyon) {
 
   console.log('Number of Features Filtered (poi layer):', filteredFeaturesCanyon.length);
 
-  // Filter the predefined POI types from the entire dataset
   const predefinedFeaturesCanyon = POIsGC.features.filter((feature) => {
     const poiTypeCanyon = feature.properties.POITYPE;
 
-    // Check if the POI type is in the predefined types array
     return predefinedPOITypesCanyon.includes(poiTypeCanyon);
   });
   predefinedGeoJSONCanyon.features = predefinedFeaturesCanyon;
 
-  // Add the predefined POIs as a new source and layer on the map
   map.addSource('predefined-poi-features-canyon', {
     type: 'geojson',
     data: predefinedGeoJSONCanyon,
@@ -491,11 +449,7 @@ function filterPOIsCanyon(selectedPOITypesCanyon) {
   console.log('Number of Features Filtered (predefined-poi layer):', predefinedFeaturesCanyon.length);
 }
 
-
-
-
-
-
+// Function to filter POIs by bounding box
 function filterPOIsByBoundingBoxCanyon(bbox, predefinedGeoJSONCanyon, filteredPointGeoJSONCanyon) {
   if (map.getLayer('individual-markers-canyon')){
     map.removeLayer('individual-markers-canyon')
@@ -521,7 +475,6 @@ function filterPOIsByBoundingBoxCanyon(bbox, predefinedGeoJSONCanyon, filteredPo
   if (map.getSource('individual-markers-filtered-canyon')) {
     map.removeSource('individual-markers-filtered-canyon');
   }
-  // Clear the 'poi' layer if it exists
   if (map.getLayer('cluster-markers-filtered-canyon')) {
     map.removeLayer('cluster-markers-filtered-canyon');
   }
@@ -536,56 +489,43 @@ function filterPOIsByBoundingBoxCanyon(bbox, predefinedGeoJSONCanyon, filteredPo
   }
   console.log('Bounding Box:', bbox);
 
-  // Convert the bounding box to a Polygon feature
   const bboxPolygon = turf.bboxPolygon(bbox);
 
-  // Filter the point features based on the bounding box
   const filteredPointFeaturesCanyon = filteredPointGeoJSONCanyon.features.filter(function (feature) {
-    // Check if the feature has a valid geometry
     if (!feature.geometry || !feature.geometry.type || !feature.geometry.coordinates) {
       console.log('Invalid feature:', feature);
-      return false; // Skip features without valid geometry
+      return false; 
     }
 
-    // Convert the point to a Turf.js point feature
     const point = turf.point(feature.geometry.coordinates, feature.properties);
 
-    // Check if the point is within the bounding box polygon
     return turf.booleanPointInPolygon(point, bboxPolygon);
   });
 
   console.log('Filtered Point Features:', filteredPointFeaturesCanyon);
 
 
-  // Filter the predefined POI features based on the bounding box
   const filteredPredefinedFeaturesCanyon = predefinedGeoJSONCanyon.features.filter(function (feature) {
-    // Check if the feature has a valid geometry
     if (!feature.geometry || !feature.geometry.type || !feature.geometry.coordinates) {
       console.log('Invalid feature:', feature);
-      return false; // Skip features without valid geometry
+      return false;
     }
-
-    // Convert the point to a Turf.js point feature
     const point = turf.point(feature.geometry.coordinates, feature.properties);
-
-    // Check if the point is within the bounding box polygon
     return turf.booleanPointInPolygon(point, bboxPolygon);
   });
 
   console.log('Filtered Predefined Features:', filteredPredefinedFeaturesCanyon);
-
-  // Create a GeoJSON object with the filtered point features
   const newFilteredPointGeoJSONCanyon = {
     type: 'FeatureCollection',
     features: filteredPointFeaturesCanyon,
   };
-// Update the filteredGeoJSON features with the appropriate icon image names
-newFilteredPointGeoJSONCanyon.features.forEach(function (feature) {
+
+  newFilteredPointGeoJSONCanyon.features.forEach(function (feature) {
   const poiTypeCanyon = feature.properties.POITYPE;
   feature.properties.iconImage = iconMapping[poiTypeCanyon];
 });
-  // Add the filtered point features as a new source and layer
-  map.addSource('poi-markers-canyon', {
+
+map.addSource('poi-markers-canyon', {
     type: 'geojson',
     data: newFilteredPointGeoJSONCanyon,
     cluster: true, 
@@ -593,7 +533,6 @@ newFilteredPointGeoJSONCanyon.features.forEach(function (feature) {
   });
 
 map.on('load', function() {
-  // Create a layer for the cluster markers
   map.addLayer({
     id: 'cluster-markers-filtered-canyon',
     type: 'symbol',
@@ -611,33 +550,29 @@ map.on('load', function() {
     }
   });
 });
-// Create a layer for the individual markers
+
 map.addLayer({
   id: 'individual-markers-filtered-canyon',
   type: 'symbol',
   source: 'poi-markers-canyon',
   filter: ['!', ['has', 'point_count']],
   layout: {
-    'icon-image': '{icon}', // Use the icon mapping for the marker icons
-    'icon-size': 1 // Adjust the icon size as desired
+    'icon-image': '{icon}', 
+    'icon-size': 1 
   },
   paint: {}
 });
-// Define an empty array to store the filtered markers
+
 var markersFilteredCanyon = [];
 
-// Iterate through each filtered point
 newFilteredPointGeoJSONCanyon.features.forEach(function (point, index) {
   var poiTypeCanyon = point.properties.POITYPE;
 
-  // Check if the poi type has a corresponding icon URL
   if (iconMapping.hasOwnProperty(poiTypeCanyon)) {
-    // Remove the existing image if it exists
     if (map.hasImage('marker-filtered-canyon-' + index)) {
       map.removeImage('marker-filtered-canyon-' + index);
     }
 
-    // Create a marker object
     var marker = {
       type: 'Feature',
       geometry: {
@@ -645,15 +580,13 @@ newFilteredPointGeoJSONCanyon.features.forEach(function (point, index) {
         coordinates: point.geometry.coordinates
       },
       properties: {
-        icon: 'marker-filtered-canyon-' + index // Use the index as the icon name
+        icon: 'marker-filtered-canyon-' + index 
       }
     };
     Object.assign(marker.properties, point.properties);
 
-    // Add the marker to the valid markers array
     markersFilteredCanyon.push(marker);
 
-    // Add the image as an icon to the map
     map.loadImage(iconMapping[poiTypeCanyon], function (error, image) {
       if (error) {
         console.error('Failed to load image:', error);
@@ -667,29 +600,23 @@ newFilteredPointGeoJSONCanyon.features.forEach(function (point, index) {
     });
   }
 });
-// Update the data of the cluster source for the filtered points
 map.getSource('poi-markers-canyon').setData({
   type: 'FeatureCollection',
   features: markersFilteredCanyon
 });
 
-
   console.log('Adding source: poi');
 
-
-  // Create a GeoJSON object with the filtered predefined features
   const newFilteredPredefinedGeoJSONCanyon = {
     type: 'FeatureCollection',
     features: filteredPredefinedFeaturesCanyon,
   };
 
-  // Update the filteredGeoJSON features with the appropriate icon image names
-newFilteredPredefinedGeoJSONCanyon.features.forEach(function (feature) {
+  newFilteredPredefinedGeoJSONCanyon.features.forEach(function (feature) {
   const poiTypeCanyon = feature.properties.POITYPE;
   feature.properties.iconImage = iconMapping[poiTypeCanyon];
 });
 
-  // Add the filtered predefined features as a new source and layer
   map.addSource('predefined-poi-markers-canyon', {
     type: 'geojson',
     data: newFilteredPredefinedGeoJSONCanyon,
@@ -698,7 +625,6 @@ newFilteredPredefinedGeoJSONCanyon.features.forEach(function (feature) {
   });
 
   map.on('load', function() {
-    // Create a layer for the cluster markers
     map.addLayer({
       id: 'cluster-markers-canyon',
       type: 'symbol',
@@ -716,32 +642,27 @@ newFilteredPredefinedGeoJSONCanyon.features.forEach(function (feature) {
       }
     })});
 
-    // Create a layer for the individual markers
-map.addLayer({
-  id: 'individual-markers-canyon',
-  type: 'symbol',
-  source: 'predefined-poi-markers-canyon',
-  filter: ['!', ['has', 'point_count']],
-  layout: {
-    'icon-image': '{icon}', // Use the icon mapping for the marker icons
-    'icon-size': 1 // Adjust the icon size as desired
-  },
-  paint: {}
-});
-// Define an empty array to store the filtered markers
-var markersCanyon = [];
-// Iterate through each predefined point
-newFilteredPredefinedGeoJSONCanyon.features.forEach(function (point, index) {
-  var poiTypeCanyon = point.properties.POITYPE;
+    map.addLayer({
+      id: 'individual-markers-canyon',
+      type: 'symbol',
+      source: 'predefined-poi-markers-canyon',
+      filter: ['!', ['has', 'point_count']],
+      layout: {
+        'icon-image': '{icon}', 
+       'icon-size': 1
+      },
+     paint: {}
+    });
 
-  // Check if the poi type has a corresponding icon URL
+    var markersCanyon = [];
+    newFilteredPredefinedGeoJSONCanyon.features.forEach(function (point, index) {
+      var poiTypeCanyon = point.properties.POITYPE;
+
   if (iconMapping.hasOwnProperty(poiTypeCanyon)) {
-    // Remove the existing image if it exists
     if (map.hasImage('marker-canyon-' + index)) {
       map.removeImage('marker-canyon-' + index);
     }
 
-    // Create a marker object
     var marker = {
       type: 'Feature',
       geometry: {
@@ -749,15 +670,13 @@ newFilteredPredefinedGeoJSONCanyon.features.forEach(function (point, index) {
         coordinates: point.geometry.coordinates
       },
       properties: {
-        icon: 'marker-canyon-' + index // Use the index as the icon name
+        icon: 'marker-canyon-' + index 
       }
     };
     Object.assign(marker.properties, point.properties);
 
-    // Add the marker to the valid markers array
     markersCanyon.push(marker);
 
-    // Add the image as an icon to the map
     map.loadImage(iconMapping[poiTypeCanyon], function (error, image) {
       if (error) {
         console.error('Failed to load image:', error); 
@@ -774,63 +693,23 @@ newFilteredPredefinedGeoJSONCanyon.features.forEach(function (point, index) {
   }
 });
 
-// Update the data of the cluster source
 map.getSource('predefined-poi-markers-canyon').setData({
   type: 'FeatureCollection',
   features: markersCanyon
 });
-
-
   console.log('Adding source: predefined-poi-markers-canyon');
-
 }
-
-
-
-
 
 
 function togglePOIFilterCanyon() {
     console.log('Button clicked');
 
-  //Toggle the 'selected' class of the clicked button
   this.classList.toggle('selected');
 }
 
-//function leavearea(selectedOption2){
- //   if (selectedOption2 === 'Yes') {
-//
-//    } else if (selectedOption2 === 'No') {
-//}}
 
-  
-  
-
-  
-  //HIGHLIGHT INTERSECTING TRAILS
-    // Calculate the trailGeometry based on the filtered features
-   // const lineStrings = filteredFeatures.map(function (feature) {
-     // return turf.lineString(feature.geometry.coordinates);
-    //});
-  
-    //const mergedLineString = lineStrings.reduce(function (mergedCoordinates, lineString) {
-      //return mergedCoordinates.concat(lineString.geometry.coordinates);
-   // }, []);
-  
-    //const trailGeometry = turf.lineString(mergedLineString);
-  
-    // Update the 'highlighted' layer with the filtered features
-    //highlightedSource.data.features = filteredFeatures;
-    //if (map.getLayer('highlighted')) {
-    //  map.getSource('highlightedSource').setData(highlightedSource.data);
-    //} else {
-      //map.addSource('highlightedSource', highlightedSource);
-      //map.addLayer(highlightedLayer);
-    //}
-
-
-//Clears all active filters on the map and re-zooms to the center of the park
-  function clearFilterCanyon() {
+// Function to clear all filters and reset the map view
+function clearFilterCanyon() {
     var select = document.getElementById("dropdownpark2");
     select.selectedIndex = 0;
     var filter = ["all"];
@@ -840,7 +719,6 @@ function togglePOIFilterCanyon() {
     map.setLayoutProperty("boundaryGC", "visibility", "visible");
     map.setCenter([-112.039940,36.090173]);
     map.setZoom(8); 
-    // Clear the 'filtered' layer if it exists
     if (map.getLayer('filtered-lines-canyon')){
       map.removeLayer('filtered-lines-canyon')
     }
@@ -859,7 +737,6 @@ function togglePOIFilterCanyon() {
     if (map.getSource('filtered-canyon')) {
       map.removeSource('filtered-canyon');
     }
-  // Clear the 'poi' layer if it exists and toggle off the 'selected' class for the buttons
   if (map.getLayer('individual-markers-canyon')){
     map.removeLayer('individual-markers-canyon')
   }
@@ -884,7 +761,6 @@ function togglePOIFilterCanyon() {
   if (map.getSource('individual-markers-filtered-canyon')) {
     map.removeSource('individual-markers-filtered-canyon');
   }
-  // Clear the 'poi' layer if it exists
   if (map.getLayer('cluster-markers-filtered-canyon')) {
     map.removeLayer('cluster-markers-filtered-canyon');
   }
@@ -930,26 +806,20 @@ function togglePOIFilterCanyon() {
   }
   if (map.getSource('poiGC')) {
     map.removeSource('poiGC');
-  }//clear the 'filtered' layer if it exists
+  }
      if (map.getLayer('predefined-poi-canyon')) {
       map.removeLayer('predefined-poi-canyon');
     }
     if (map.getSource('predefined-poi-canyon')) {
       map.removeSource('predefined-poi-canyon');
     }
-      // Clear the filteredPointFeatures array
   filteredPointFeatures = [];
   }
 
-
 var dropdown5 = document.getElementById('dropdown5');
 
-// Add event listener for the 'change' event
 dropdown5.addEventListener('change', function() {
-  // Get the selected value
   var dropdown51 = dropdown5.value;
-
-  // Call your function with the selected value
   Predefined_Maps(dropdown51);
 });}
 

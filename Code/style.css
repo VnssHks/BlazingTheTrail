@@ -1,14 +1,22 @@
-body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
+body { margin: 0; 
+  padding: 0;   
+  font-family: 'Frutiger', sans-serif;
 }
+
 @font-face {
   font-family: 'Frutiger';
   src: url('https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/Data/Frutiger.woff') format('woff');
-  /* Add additional font formats here if necessary */
 }
 
-#map { position: absolute; top: 0; bottom: 0; width: 100%; z-index: -1; }
+#map { 
+  position: absolute; 
+  top: 0; 
+  bottom: 0; 
+  width: 100%; 
+  z-index: -1; }
+
 #toggleFilter {
-  position: fixed; /* or position: absolute; depending on your needs */
+  position: fixed; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -20,7 +28,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 }
 
 #toggleFiltercanyon {
-  position: fixed; /* or position: absolute; depending on your needs */
+  position: fixed; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -32,7 +40,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 }
 
 #toggleFilter2 {
-  position: fixed; /* or position: absolute; depending on your needs */
+  position: fixed; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -40,10 +48,12 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   background-color: #ffffff;
   padding: 10px;
   border: 1px solid #ccc;
+  max-height: 400px;
   overflow: auto;
 }
+
 #toggleFilter3 {
-  position: fixed; /* or position: absolute; depending on your needs */
+  position: fixed; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -51,6 +61,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   background-color: #ffffff;
   padding: 10px;
   border: 1px solid #ccc;
+  max-height: 400px;
   overflow: auto;
 }
 
@@ -68,15 +79,17 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 }
 
 .close-filter-button {
-    border: 1px solid #000000; /* Add border */
+    border: 1px solid #000000; 
     background-color: #ffffff;
     font-size: 13px;
     color: #000000;
     cursor: pointer;
 }
+
 .bold-text {
   font-weight: bold;
 }
+
 .button-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -95,6 +108,7 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   align-items: center;
   margin-right: 10px;
 }
+
 .round-button {
   width: 15px;
   height: 15px;
@@ -103,11 +117,11 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   margin-right: 5px;
   border: black;
 }
+
 .selected {
   background-color: #007AFF;
 
 }
-
 
 .button-text {
   white-space: nowrap;
@@ -116,19 +130,39 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 }
 
 #bounding-box {
-  width: 100px; /* Default width */
-  height: 100px; /* Default height */
+  width: 100px; 
+  height: 100px; 
   background-color: red;
   margin-top: 10px;
 }
 
-/* Responsive Styles */
+/* Responsive Styles for smaller screens */
 @media (ax-width: 768px) {
-  /* Adjust styles for smaller screens */
   #toggleFilter {
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #ffffff;
     padding: 5px;
+    border: 1px solid #ccc;
+    max-width: 350px;
+    overflow: auto;
   }
   
+  #toggleFiltercanyon {
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #ffffff;
+    padding: 10px;
+    max-width: 350px;
+    border: 1px solid #ccc;
+    overflow: auto;
+  }
   .button-container {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -138,18 +172,18 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
     height: 80px;
   }
     .round-button {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: #DDDDDD;
     margin-right: 5px;
     border: black;
   }
+
   .selected {
     background-color: #007AFF;
   }
 
-  
   .tooltip {
   position: absolute;
   top: 100%;
@@ -167,7 +201,18 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
   transition: opacity 0.3s;
   z-index: 1;
 }
-}
+#switch {
+  position: absolute;
+  bottom: 75px; 
+  left: 45%;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}}
 
 .slider-container {
   position: relative;
@@ -190,8 +235,8 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 
 #legendButton {
   position: absolute;
-  bottom: 35px; /* Adjust the value as per your preference */
-  left: 8px; /* Adjust the value as per your preference */
+  bottom: 35px; 
+  left: 8px; 
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -227,20 +272,20 @@ body { margin: 0; padding: 0;   font-family: 'YourFont', sans-serif;
 .legend-label {
   font-size: 14px;
 }
+
 #legend {
   position: absolute;
-  bottom: 75px; /* Adjust the value as per your preference */
-  left: 10px; /* Adjust the value as per your preference */
+  bottom: 75px; 
+  left: 10px; 
   background-color: #ffffff;
   border-radius: 4px;
   padding: 10px;
   font-size: 14px;
-    z-index: 1000; /* Ensure the legend appears above other elements */
-  max-height: 200px; /* Adjust the maximum height as per your preference */
+    z-index: 1000; 
+  max-height: 200px; 
   overflow-y: auto;
 display: none;
 }
-
 
 #legend.show {
   display: block;
@@ -261,6 +306,7 @@ display: none;
 .legend-item span {
   font-size: 14px;
 }
+
 .legend-item .legend-icon.circle {
   width: 10px;
   height: 10px;
@@ -269,8 +315,8 @@ display: none;
 
 #togglefilterbutton {
   position: absolute;
-  top: 10px; /* Adjust the value as per your preference */
-  left: 10px; /* Adjust the value as per your preference */
+  top: 10px; 
+  left: 10px; 
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -281,8 +327,8 @@ display: none;
 }
 #togglefilterbuttoncanyon {
   position: absolute;
-  top: 10px; /* Adjust the value as per your preference */
-  left: 10px; /* Adjust the value as per your preference */
+  top: 10px; 
+  left: 10px; 
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -291,12 +337,11 @@ display: none;
   font-size: 14px;
   cursor: pointer;
 }
-
 
 #togglefilterbutton2 {
   position: absolute;
-  top: 55px; /* Adjust the value as per your preference */
-  left: 10px; /* Adjust the value as per your preference */
+  top: 55px; 
+  left: 10px; 
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -305,10 +350,11 @@ display: none;
   font-size: 14px;
   cursor: pointer;
 }
+
 #togglefilterbutton3 {
   position: absolute;
-  top: 55px; /* Adjust the value as per your preference */
-  left: 10px; /* Adjust the value as per your preference */
+  top: 55px; 
+  left: 10px; 
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -317,13 +363,11 @@ display: none;
   font-size: 14px;
   cursor: pointer;
 }
-
-
 
 #switch {
   position: absolute;
-  top: 10px; /* Adjust the value as per your preference */
-  left: 50%; /* Adjust the value as per your preference */
+  top: 10px; 
+  left: 45%;
   background-color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -395,6 +439,7 @@ display: none;
   visibility: visible;
   opacity: 1;
 }
+
 .box {
   position: fixed;
   top: 50%;
@@ -411,9 +456,8 @@ display: none;
 }
 
 .visible {
-  display: block; /* Class to control visibility */
+  display: block; 
 }
-
 
 .box-content.show {
   display: none;
@@ -432,6 +476,7 @@ display: none;
   cursor: pointer;
   z-index: 9999;
 }
+
 #togglealertsbuttoncanyon {
   position: fixed;
   top: 10px;
@@ -448,9 +493,10 @@ display: none;
 
 #alerts-box-canyon{
   position: absolute;
-  max-height: 400px; /* Set a maximum height for scrollability */
+  max-height: 400px;
   overflow-y: auto; ;
 }
+
 #roundabout-button {
   position: absolute;
   top: 105px;
@@ -492,12 +538,12 @@ display: none;
   color: black;
 }
 .link:visited {
-  color: #F7B32B; /* Visited link color */
+  color: #F7B32B; 
 }
 
 .link:focus,
 .link:hover {
-  color: #9dafa4; /* Hover and focus link color */
+  color: #9dafa4; 
 }
 
 .author {

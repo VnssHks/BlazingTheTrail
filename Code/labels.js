@@ -1,14 +1,17 @@
+//The following code makes sure all layers have popups on hover (/click for mobile users) with information about the features
 const popup = new mapboxgl.Popup({
   closeButton: false,
   closeOnClick: true
 });
 
+//The size of the marker, depending on the zoom level is determined
 function calculateMarkerSize(zoom) {
-  const maxMarkerSize = 8; // Set your desired maximum marker size
-  const calculatedSize = Math.pow(2, zoom) * 0.003; // Calculate marker size
-  return Math.min(calculatedSize, maxMarkerSize); // Limit to the maximum size
+  const maxMarkerSize = 8; 
+  const calculatedSize = Math.pow(2, zoom) * 0.003; 
+  return Math.min(calculatedSize, maxMarkerSize); 
 }
 
+//Here the popups are add to the layers and filled with information
 const addPopupToLayer = (layer, popup) => {
   map.on('mouseenter', layer, (e) => {
     const features = map.queryRenderedFeatures(e.point, { layers: [layer] });
@@ -25,7 +28,6 @@ const addPopupToLayer = (layer, popup) => {
 
     let popupContent = `<strong>${poiType}${POITYPE}</strong><br>${description}`;
     console.log(feature.properties)
-    // Conditionally include the 'LENGTH' property for line layers
     if (lineLayers.includes(layer)) {
       const length = feature.properties.Miles || '';
       popupContent += `<br>Length: ${length} miles`;
@@ -41,6 +43,7 @@ const addPopupToLayer = (layer, popup) => {
   });
 };
 
+//These are the layers to which popups are added
 const pointLayers = ['individual-markers','individual-markers-canyon', 'individual-markers-filtered','individual-markers-filtered-canyon', 'cluster-markers','cluster-markers-canyon', 'cluster-markers-filtered', 'cluster-markers-filtered-canyon','POIs', 'POIsGC', 'individual-markers-filtered-park2'];
 pointLayers.forEach(layer => {
   addPopupToLayer(layer, popup);
@@ -51,12 +54,11 @@ lineLayers.forEach(layer => {
   addPopupToLayer(layer, popup);
 });
 
-// Update marker size on zoom change
+//This code provides the POIs of both parks with the functionality to get bigger/smaller depending on the zoom layer, with a maximum size change to as to not have everything overlapping
 map.on('zoom', () => {
   const currentZoom = map.getZoom();
   const newMarkerSize = calculateMarkerSize(currentZoom);
 
-  // Update marker layer's layout properties with new size
   map.setPaintProperty('POIs', 'circle-radius', newMarkerSize);
   map.setPaintProperty('POIsGC', 'circle-radius', newMarkerSize);
 });

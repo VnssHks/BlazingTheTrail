@@ -1,3 +1,4 @@
+//All icons are loaded form the Github Repository and assigned to the POIType fo the POIs of the parks 
 const iconMapping = {
     'Museum': 'https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/Icons/Museum.png',
     'Geyser': 'https://raw.githubusercontent.com/VnssHks/BlazingTheTrail/main/Icons/Geyser.png',

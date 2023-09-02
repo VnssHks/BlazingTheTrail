@@ -9,21 +9,21 @@ function toggleLegend() {
 // Define the legend items for trails, roads, and boundaries
 const trailLegendItem = {
     name: 'Trails',
-    color: '#A0766E', // Specify the desired color for trails
+    color: '#A0766E', 
   };
   
   const roadLegendItem = {
     name: 'Roads',
-    color: '#000000', // Specify the desired color for roads
+    color: '#000000', 
   };
   
   const boundaryLegendItem = {
     name: 'Boundaries',
-    color: '#000000', // Specify the desired color for boundaries
+    color: '#000000', 
   };
   const FilteredLegendItem = {
       name: 'Filtered Trails',
-      color: '#F7B32B', // Specify the desired color for boundaries
+      color: '#F7B32B', 
     };
   
   
@@ -44,6 +44,7 @@ const trailLegendItem = {
   
     return legendItem;
   }
+
   // Function to create a legend item element for POIs
   function createPOILegendItem(name, shape, color) {
       const legendItem = document.createElement('div');
@@ -61,46 +62,40 @@ const trailLegendItem = {
     
       return legendItem;
     }
-  // Append the legend items to the legend container
   legendContainer.appendChild(createLegendItem(trailLegendItem.name, trailLegendItem.color));
   legendContainer.appendChild(createLegendItem(roadLegendItem.name, roadLegendItem.color));
   legendContainer.appendChild(createLegendItem(boundaryLegendItem.name, boundaryLegendItem.color));
   legendContainer.appendChild(createLegendItem(FilteredLegendItem.name, FilteredLegendItem.color));
-  // Create a POI legend item with a circular shape
+
   const poiLegendItem = createPOILegendItem('Points of Interest', 'circle', '#000000');
   legendContainer.appendChild(poiLegendItem);
-// Iterate over the keys of the iconMapping object
-Object.keys(iconMapping).forEach(poiType => {
-  // Create a legend item element
-  const legendItem = document.createElement('div');
+
+  Object.keys(iconMapping).forEach(poiType => {
+
+    const legendItem = document.createElement('div');
   legendItem.className = 'legend-item';
 
-  // Create an image element for the icon
+
   const icon = document.createElement('img');
   icon.src = iconMapping[poiType];
   icon.alt = poiType;
   legendItem.appendChild(icon);
 
-  // Create a label element for the POI type
   const label = document.createElement('span');
   label.textContent = poiType;
   legendItem.appendChild(label);
 
-  // Append the legend item to the legend container
   legendContainer.appendChild(legendItem);
 });
 
-// Stop event propagation for mouse events on the legend container
 legendContainer.addEventListener('mousedown', (event) => {
   event.stopPropagation();
 });
 
-// Add click event listener to the legend button
 const legendButton = document.getElementById('legendButton');
 legendButton.addEventListener('click', toggleLegend);
 
-
-
+//This is the function that toggles the alerts on and off (Yellowstone)
 function toggleBox(boxId) {
   var box = document.getElementById(boxId);
   var boxContent = box.querySelector('.box-content');
@@ -114,10 +109,8 @@ function toggleBox(boxId) {
       var response = JSON.parse(xhr.responseText);
       var alerts = response.data;
 
-      // Clear previous content
       boxContent.innerHTML = '';
 
-      // Populate the box content with API data
       for (var i = 0; i < alerts.length; i++) {
         var alert = alerts[i];
         var alertTitle = document.createElement('h3');
@@ -125,22 +118,20 @@ function toggleBox(boxId) {
         var alertDescription = document.createElement('p');
         alertDescription.textContent = alert.description;
 
-        // Append alert content to box content
         boxContent.appendChild(alertTitle);
         boxContent.appendChild(alertDescription);
       }
 
-      // Toggle the visibility class
       box.classList.toggle('visible');
     }
   };
   xhr.send();
 }
 
+//This is the function that toggles the alerts on and off (Grand Canyon)
 function toggleBoxCanyon(boxId) {
   var box = document.getElementById(boxId);
   var boxContent = box.querySelector('.box-content');
-  // Make API request
   var xhr = new XMLHttpRequest();
   var url = "https://developer.nps.gov/api/v1/alerts?q=grca&api_key=RllXDxNdfPKkKBMSXt5K6lv0XtH9Ik3IdckjAnNt";
   xhr.open("GET", url, true);
@@ -149,10 +140,8 @@ function toggleBoxCanyon(boxId) {
       var response = JSON.parse(xhr.responseText);
       var alerts = response.data;
 
-      // Clear previous content
       boxContent.innerHTML = '';
 
-      // Populate the box content with API data
       for (var i = 0; i < alerts.length; i++) {
         var alert = alerts[i];
         var alertTitle = document.createElement('h3');
@@ -160,34 +149,30 @@ function toggleBoxCanyon(boxId) {
         var alertDescription = document.createElement('p');
         alertDescription.textContent = alert.description;
 
-        // Append alert content to box content
         boxContent.appendChild(alertTitle);
         boxContent.appendChild(alertDescription);
       }
-
-      // Toggle the visibility class
       box.classList.toggle('visible');
     }
   };
   xhr.send();
 }
 
-
+//This code controls the visibility of the text box of the 'roundabout-button' is clicked
 const roundaboutButton = document.getElementById('roundabout-button');
 const textBoxContainer = document.getElementById('text-box-container');
-let isTextBoxVisible = false; // Track the visibility state
+let isTextBoxVisible = false; 
 
 roundaboutButton.addEventListener('click', function() {
   console.log('Button clicked');
   console.log('Current visibility state:', isTextBoxVisible);
 
-  // Toggle the visibility of the text box container
   if (isTextBoxVisible) {
     textBoxContainer.style.display = 'none';
   } else {
     textBoxContainer.style.display = 'block';
   }
-  isTextBoxVisible = !isTextBoxVisible; // Toggle the state
+  isTextBoxVisible = !isTextBoxVisible; 
 
   console.log('Updated visibility state:', isTextBoxVisible);
 });

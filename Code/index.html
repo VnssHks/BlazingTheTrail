@@ -2,7 +2,8 @@
 <html  lang="en">
 <head>
 <meta charset="utf-8">
-<title>Blazing The Trail - Yellowstone</title>
+<title>Blazing The Trail</title>
+<!--The following lines of code load any applicable/necessary libraries to be used in the code for site-->
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=yes">
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.0/mapbox-gl.js'></script>
 <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
@@ -13,6 +14,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+	<!--This piece of code sends insights about the sites usage to Microsoft Clarity (including amount of dead-clicks, quickbacks, js errors, etc.)-->
 	<script type="text/javascript">
 		(function(c,l,a,r,i,t,y){
 			c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -21,13 +23,17 @@
 		})(window, document, "clarity", "script", "hpvevc6cvl");
 	</script>
     <div id='map'></div>
+	<!--This button switches from one national park to the other, using a function that is declared in Grand_Canyon_Data.js-->
 	<button id="switch">Switch National Park</button>
+	<!--This button shows the legend, including all icons (functionality declared in legend.js)-->
 		<button id="legendButton">Legend</button>
 	<div id="legend"></div>
+	<!--This button shows the current alerts according to the official NPS Alerts API, for each of the parks-->
 	<button id="togglealertsbutton" onclick="toggleBox('alerts-box')">Current Alerts</button>
 	<div class="box" id="alerts-box">
 	  <div class="box-content" id="alerts"></div>
 	</div>
+	<!--This info button gives the user a very quick explanation of the nature of the project and refers them to the Github repository-->
 	<button id="roundabout-button">i</button>
 <div id="text-box-container">
   <h3 class="title">About</h3>
@@ -35,6 +41,7 @@
   <a href="https://github.com/VnssHks/BlazingTheTrail/tree/main" class="link">Visit the GitHub Repository for more information!</a>
   <p class="author">By: Vanessa Henkes</p>
 </div>
+<!--This is where the buttons for Yellowstone NP are declared-->
 <div id = 'park1filters' class = 'filters'>
 	<button id='togglefilterbutton' class="filter-button" onclick="toggleFilter()">Select trip details</button>
 	<div id='toggleFilter' style="display:none">
@@ -135,6 +142,7 @@
 	  </div>
     </div>
 	</div>
+	<!--Still for Yellowstone NP, this is the button for the predefined maps-->
 	<div id ='park1pre' class='filters'>
 	<button id='togglefilterbutton2' class="filter-button" onclick="toggleFilter2()">Predefined Maps</button>
 	<div id='toggleFilter2' style="display:none">
@@ -158,6 +166,8 @@
 	<div class="close-button">
 		<button class="close-filter-button" onclick="toggleFilter2()">X</button>
 	</div></div></div></div>
+
+	<!--This is where the filters for Grand Canyon NP are declared-->
 	<div id = 'park2filters' class = 'filters'>
 		<button id='togglefilterbuttoncanyon' class="filter-button" onclick="toggleFiltercanyon()">Select trip details</button> 
 		<div id='toggleFiltercanyon' style="display:none">
@@ -261,7 +271,7 @@
 		</div>
 		</div>
 
-			
+		<!--Here the button for predefined maps for Grand Canyon NP is declared-->	
 		<div id='park2pre' class='filters'>
 			<button id='togglefilterbutton3' class="filter-button" onclick="toggleFilter3()">Predefined Maps</button>
 			<div id='toggleFilter3' style="display:none">
@@ -287,10 +297,12 @@
 				</div>
 			</div>
 		</div>
-			
+		<!--This is the alerts button for Grand Canyon NP-->	
 		<button id="togglealertsbuttoncanyon" onclick="toggleBoxCanyon('alerts-box-canyon')">Current Alerts</button>
 		<div class="box" id="alerts-box-canyon">
 		  <div class="box-content" id="alerts"></div>
+
+<!--All the subsequent scripts that include the functionalities for the buttons/sliders/etc. are declared here-->		  
  <script src="icons.js"></script>			
  <script src='Yellowstone_Filter_1.js'></script>
  <script src='Yellowstone_Filter_2.js'></script>
