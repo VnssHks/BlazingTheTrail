@@ -137,7 +137,7 @@ body { margin: 0;
 }
 
 /* Responsive Styles for smaller screens */
-@media (ax-width: 768px) {
+@media (max-width: 768px) {
   #toggleFilter {
     position: fixed; 
     top: 50%;
