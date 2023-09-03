@@ -21,6 +21,10 @@ function toggleFilter3() {
       FilterPointsOfInterestpark2(dropdown51park2);
       addEntranceLayerpark2();
     });
+let predefinedGeoJSONpark2 = {
+  type: 'FeatureCollection',
+  features: []
+};
   
     
 // Function to filter points of interest on the map
