@@ -18,7 +18,7 @@ Future research endeavours should aim to enhance and refine the conceptual frame
 
 
 ## Contact Information
-Please feel free to contact me via [email](vahenkes@gmail.com) for any questions regarding this project. 
+Please feel free to contact me via email (vahenkes@gmail.com) for any questions regarding this project. 
 
 ## License
 CC-BY 4.0 license
