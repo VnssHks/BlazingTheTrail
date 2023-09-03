@@ -8,7 +8,7 @@ This thesis aims to establish a versatile map interface that caters to the disti
 
 ## Key Features
 - Individual filtering, tailored to each visitor
-- Predefined filtering, based on [Benson et al. (2013)](10.1007/s00267-013-0143-4)
+- Predefined filtering, based on [Benson et al. (2013)](https://www.researchgate.net/publication/256101414_Who_Visits_a_National_Park_and_What_do_They_Get_Out_of_It_A_Joint_Visitor_Cluster_Analysis_and_Travel_Cost_Model_for_Yellowstone_National_Park)
 - Alerts API with the current alerts for each park
 - Button that helps navigate between the parks
 
