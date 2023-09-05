@@ -1,4 +1,4 @@
-# [Blazing The Trail Version 2.0](https://blazing-the-trail-thesis.vercel.app) - Creating a Customisable Web Map for Yellowstone and Grand Canyon National Parks
+# [Blazing The Trail Version 2.1](https://blazing-the-trail-thesis.vercel.app) - Creating a Customisable Web Map for Yellowstone and Grand Canyon National Parks
 _A Master Thesis Exploration of user-specific web maps of Yellowstone and Grand Canyon NP_
 
 As part of the [International Master of Cartography](https://cartographymaster.eu), this master thesis was written with [ITC](https://www.itc.nl) in the Netherlands, with the help of my supervisor [Univ.-Prof. Dr. Franz-Benjamin Mocnik](https://mocnik-science.net). 
